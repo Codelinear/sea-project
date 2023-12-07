@@ -1,0 +1,45 @@
+.head-cover {
+  h1 {
+    color: #2c2e32;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 31px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 290px;
+  }
+  margin-left: 72px;
+}
+
+.free-search {
+  display: flex;
+  padding: 36.437px 71.278px 32px 33.722px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 38.563px;
+  border-radius: 21px;
+  background: #e9eafb;
+  width: 322px;
+}
+
+.quality-search {
+  h1 {
+    color: #3040d0;
+    // font-family: "Roboto";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 31.2px */
+  }
+  p {
+    color: #3040d0;
+    // font-family: "Roboto";
+    font-size: 16.384px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 21.3px */
+  }
+}

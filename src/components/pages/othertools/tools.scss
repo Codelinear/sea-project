@@ -1,0 +1,80 @@
+.tabs-container .active {
+  color: #3053d0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  border-radius: 23px;
+  background: #eaf7ff;
+  opacity: 1 !important;
+}
+.tabs-container .active .tab {
+  opacity: 1;
+}
+.tabs-container .tab {
+  text-align: left;
+  width: 63%;
+  opacity: 0.5;
+}
+@media (max-width: 768px) {
+  .serp-checker {
+    flex-wrap: wrap;
+    padding: 70px 20px !important;
+  }
+
+  .inputs {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .head-serp {
+    margin-top: 50px;
+  }
+
+  .head-serp p {
+    width: 100%;
+  }
+  .byS {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    gap: 20px;
+  }
+
+  .radio-section {
+    flex-wrap: wrap;
+    padding-top: 60px;
+  }
+
+  .main-calculate {
+    flex-wrap: wrap;
+  }
+
+  .main-roas {
+    padding: 20px 20px;
+  }
+
+  .generator {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .faq-input input {
+    width: 100%;
+  }
+
+  .number-of-question {
+    flex-wrap: wrap;
+  }
+  .faq-input textarea {
+    padding: 0;
+  }
+  .hero-faq p {
+    width: 100%;
+  }
+
+  .tabs-container {
+    width: 100%;
+  }
+}

@@ -1,0 +1,49 @@
+.accordion-header-gs {
+  display: flex;
+  padding: 17px 22px;
+  //   flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  width: 100%;
+}
+
+.accordion-item-gs {
+  border-radius: 8px;
+  background: #fff;
+
+  /* nav */
+  box-shadow: 0px 4px 24px 1px rgba(0, 0, 0, 0.05);
+
+  width: 664px;
+  padding: 10px;
+}
+
+.not-asnwer {
+  p {
+    color: var(--black-80, #2c2e32);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.7;
+  }
+  button {
+    border-radius: 4px;
+    border: 1px solid var(--color-primary-100, #3040d0);
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-primary-100, #3040d0);
+
+    /* Button/Small */
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}

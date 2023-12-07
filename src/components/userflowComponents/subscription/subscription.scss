@@ -1,0 +1,206 @@
+.head-subscription {
+  h1 {
+    color: #2c2e32;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 31px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+.el-doredo {
+  h1 {
+    color: #fff;
+    // text-align: center;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 39px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.6;
+  }
+  h2 {
+    color: #fff;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Poppins;
+    font-size: 105.384px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    span {
+      font-size: 80px;
+      vertical-align: text-top;
+    }
+  }
+  p {
+    color: #fff;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 114.5%; /* 22.9px */
+  }
+}
+.card-head {
+  width: 528px;
+  height: 247px;
+  border-radius: 10px;
+  background: linear-gradient(103deg, #e47322 3.77%, #4d127d 100.86%);
+}
+
+.plan-name-user {
+  p {
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size:16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.8;
+  }
+}
+
+.plan-name-vale {
+  p {
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    span {
+      color: rgba(37, 37, 37, 0.6);
+      font-variant-numeric: ordinal;
+      font-feature-settings: "dlig" on;
+      font-family: Poppins;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  }
+}
+.modify-btns {
+  .modify {
+    border-radius: 4px;
+    background: #3040d0;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    color: #fff;
+  }
+  .view-features {
+    color: #3040d0;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 4px;
+    border: 1px solid #3040d0;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.change-btn {
+  color: #3040d0 !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  text-decoration-line: underline;
+}
+
+.cancel-subscription {
+  color: #d01313;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 6px;
+  border: 2px solid #d01313;
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.secur {
+  p {
+    color: #0f0f0f;
+    // font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+    text-transform: capitalize;
+    opacity: 0.6;
+  }
+}
+
+.save-btn-payment {
+  border-radius: 4px;
+  background: #3040d0;
+  width: 100% !important;
+  span {
+    color: #fff !important;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.no-pay {
+  border-radius: 12px;
+  background: #faebd6;
+  display: flex;
+  padding: 10px;
+  // flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: #8b2c0e;
+  // font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+}
+
+.with-pay {
+  border-radius: 12px;
+  background: #f8f6f6;
+  display: flex;
+  padding: 13px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  color: #191918;
+  // font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+}

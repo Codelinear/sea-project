@@ -1,0 +1,102 @@
+.tabs-container-flow .active {
+  color: #113fe3;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 2px;
+  background: #d0e7f5;
+  opacity: 1 !important;
+}
+
+.tabs-container-flow .tab {
+  text-align: left;
+  //   width: 63%;
+  opacity: 0.5;
+}
+
+.billing-address-page {
+  .username-profile {
+    width: 58%;
+  }
+}
+
+.username-profile {
+  gap: 15px;
+}
+label {
+  line-height: 90%;
+}
+
+.head-profile-setting {
+  margin-bottom: 2.5rem;
+}
+
+/* NumericInput.css */
+.numeric-input::-webkit-inner-spin-button,
+.numeric-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0 !important;
+  display: none !important;
+}
+
+.numeric-input {
+  /* Additional styling if needed */
+  display: none !important;
+}
+
+.profile-setting {
+  padding-left: 90px;
+}
+
+@media (max-width: 768px) {
+  .tabbed-content-flow {
+    flex-wrap: wrap;
+  }
+  .tabs-container-flow {
+    height: 100%;
+    width: 100%;
+  }
+
+  .tab-content-flow {
+    padding-top: 30px;
+  }
+  .profile-setting {
+    padding-left: 0px;
+  }
+
+  .credit-card-details {
+    width: 100%;
+  }
+  .el-doredo {
+    width: 100%;
+  }
+  .card-head {
+    width: 100% !important;
+  }
+  .card-plan-details {
+    width: 100%;
+  }
+  .subscription {
+    padding-left: 0px;
+  }
+
+  .save-sucess {
+    flex-wrap: wrap;
+  }
+}
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tabs-container-flow {
+    width: 30%;
+  }
+  .profile-setting {
+    padding-left: 40px;
+}
+.subscription{
+  padding-left: 0;
+}
+}

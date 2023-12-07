@@ -1,0 +1,181 @@
+.head-profile-setting {
+  h1 {
+    color: #2c2e32;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 31px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+
+.username-profile {
+  input {
+    border-radius: 4px;
+    border: 0.5px solid rgba(0, 0, 0, 0.5);
+    // width: 309px;
+    height: 40px;
+    padding-left: 10px;
+    outline: none;
+  }
+  button {
+    width: 152px;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--color-primary-200, #1020ae);
+    span {
+      color: var(--color-primary-200, #1020ae);
+      //   font-family: "Inter";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
+.frame {
+  align-items: flex-start;
+  background-color: #e7f9d5;
+  border-radius: 12px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  padding: 7px;
+  position: relative;
+}
+
+.frame .div {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 19px;
+  justify-content: center;
+  position: relative;
+}
+
+.frame .material-symbols {
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.frame .div-wrapper {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.frame .text-wrapper {
+  color: #204f0a;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 18px;
+  margin-top: -1px;
+  position: relative;
+  width: 213.34px;
+}
+
+.forgetpassword {
+  color: var(--color-primary-100, #3040d0);
+  /* Link/Small */
+  //   font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+.alerst {
+  border-radius: 12px;
+  background: #faebd6;
+  width: 230px;
+  display: inline-flex;
+  padding: 7px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.save-btn-profile-verify {
+  width: 152px;
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #3040d0;
+  border: 1px solid var(--color-primary-200, #1020ae);
+  span {
+    color: #fff !important;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.renter-password {
+  width: 209px !important;
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #3040d0;
+  border: 1px solid var(--color-primary-200, #1020ae);
+  span {
+    color: #fff !important;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.email-sent-to {
+  width: 330px;
+  display: flex;
+  padding: 12.5px 20px 13.5px 17px;
+  align-items: center;
+  border-radius: 12px;
+  background: #e8fad6;
+}
+
+.verify-otp-profile {
+  button {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 6px;
+    background: #3040d0;
+    color: #fff;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.activeError {
+  border-width: 1px !important;
+  border-color: red !important;
+}

@@ -1,0 +1,103 @@
+.head-works {
+  margin-left: 72px;
+  h3 {
+    color: #2c2e32;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 31px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+.progressh-card {
+  margin-left: 182px;
+  width: 150%;
+}
+
+.parent-scroll-bar {
+  overflow-x: scroll;
+  //   width: 150%;
+}
+.parent-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+.num-one {
+  display: flex;
+  padding: 35.715px 52px 53px 34px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 39.285px;
+  border-radius: 21px;
+  background: #fcfcfc;
+  width: 548px;
+}
+
+.one-number {
+  h3 {
+    color: #3040d0;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-feature-settings: "dlig" on;
+    // font-family: Space Grotesk;
+    font-size: 106.286px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.amet-magnis {
+  h2 {
+    color: #3a3a3a;
+    // font-family: "Roboto";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 31.2px */
+  }
+  p {
+    color: #3a3a3a;
+    // font-family: "Roboto";
+    font-size: 16.384px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 21.3px */
+  }
+}
+
+.scroll-bar-fill {
+  width: 568px;
+  height: 10.375px;
+  flex-shrink: 0;
+}
+@media (max-width: 1024px) {
+  .box-cover {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-bar-fill {
+    width: 100% !important;
+  }
+  .progressh-card {
+    margin-left: 2px;
+    width: 150%;
+  }
+  .works-bar {
+    padding-left: 0;
+  }
+  .how-it-works {
+    padding: 0 20px;
+  }
+  .box-cover {
+    justify-content: center;
+  }
+
+  .what-covers {
+    margin-top: 150px;
+  }
+}

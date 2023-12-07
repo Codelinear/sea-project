@@ -1,0 +1,42 @@
+.support-inputs {
+  input {
+    width: 100%;
+  }
+  textarea {
+    width: 100%;
+  }
+  select {
+    padding-left: 16px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+.support-card-1:hover {
+  background: var(--white-tint-blue, #f4f7fa);
+}
+.support-card-1:hover .heading-box {
+  color: #1020ae;
+  text-decoration: underline;
+}
+
+.highlight {
+  background: #db0d0d;
+}
+
+@media (max-width: 768px) {
+  .support-hero {
+    padding: 130px 30px;
+  }
+  .circle-footer-contat {
+    display: none;
+  }
+
+  .support-card-1 {
+    width: 100%;
+    padding-right: 0;
+  }
+  .support-contact{
+    width: 100%;
+  }
+}

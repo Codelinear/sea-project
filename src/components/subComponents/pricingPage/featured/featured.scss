@@ -1,0 +1,67 @@
+.head-left-featured {
+  h1 {
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  p {
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+.lorem-ecsclaim {
+  p {
+    opacity: 0.7;
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 6px;
+  }
+}
+.head-subleft {
+  h3 {
+    color: #252525;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "dlig" on;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 173.034px;
+  }
+}
+
+.see-more-btn {
+  button {
+    border-radius: 8px;
+    background: #ebf2ff;
+    display: inline-flex;
+    padding: 6px 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #3040D0;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+  }
+}
