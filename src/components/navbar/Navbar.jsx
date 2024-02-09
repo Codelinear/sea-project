@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./nav.scss";
 import logo from "./Sea Transparant 1.svg";
 
@@ -18,7 +19,7 @@ const Navbar = () => {
   const hamburger = () => {
     setactive(!active);
   };
-
+  const navigate = useNavigate();
   // const linkClick = () => {
   //   setactive(!active);
   // }
@@ -53,10 +54,10 @@ const Navbar = () => {
                           Free Trial
                         </Link>
                       </li>
-                      
+
                       <li class="items">
                         <Link onClick={scrollToTop} to={"/product"}>
-                          Other Tools{" "}
+                          Our Tools{" "}
                         </Link>
                       </li>
                       <li class="items">
@@ -131,7 +132,7 @@ const Navbar = () => {
                 </li> */}
                     <li class="items">
                       <Link onClick={scrollToTop} to={"/product"}>
-                        Other Tools
+                        Our Tools
                       </Link>
                     </li>
                     <li class="items">
@@ -164,6 +165,7 @@ const Navbar = () => {
                           className="logout-btn"
                           onClick={(e) => {
                             localStorage.removeItem("token");
+                            navigate("/login");
                             window.location.reload();
                           }}
                         >
@@ -172,18 +174,20 @@ const Navbar = () => {
                       </div>
 
                       <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="17"
-                          viewBox="0 0 18 17"
-                          fill="none"
-                        >
-                          <path
-                            d="M8.60352 1.94043C9.47868 1.94043 10.318 2.28809 10.9368 2.90692C11.5557 3.52575 11.9033 4.36507 11.9033 5.24023C11.9033 6.1154 11.5557 6.95472 10.9368 7.57355C10.318 8.19238 9.47868 8.54004 8.60352 8.54004C7.72835 8.54004 6.88903 8.19238 6.2702 7.57355C5.65137 6.95472 5.30371 6.1154 5.30371 5.24023C5.30371 4.36507 5.65137 3.52575 6.2702 2.90692C6.88903 2.28809 7.72835 1.94043 8.60352 1.94043ZM8.60352 10.1899C12.2498 10.1899 15.2031 11.6666 15.2031 13.4897V15.1396H2.00391V13.4897C2.00391 11.6666 4.95723 10.1899 8.60352 10.1899Z"
-                            fill="#3040D0"
-                          />
-                        </svg>
+                        <Link to={"/user"} onClick={scrollToTop}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="17"
+                            viewBox="0 0 18 17"
+                            fill="none"
+                          >
+                            <path
+                              d="M8.60352 1.94043C9.47868 1.94043 10.318 2.28809 10.9368 2.90692C11.5557 3.52575 11.9033 4.36507 11.9033 5.24023C11.9033 6.1154 11.5557 6.95472 10.9368 7.57355C10.318 8.19238 9.47868 8.54004 8.60352 8.54004C7.72835 8.54004 6.88903 8.19238 6.2702 7.57355C5.65137 6.95472 5.30371 6.1154 5.30371 5.24023C5.30371 4.36507 5.65137 3.52575 6.2702 2.90692C6.88903 2.28809 7.72835 1.94043 8.60352 1.94043ZM8.60352 10.1899C12.2498 10.1899 15.2031 11.6666 15.2031 13.4897V15.1396H2.00391V13.4897C2.00391 11.6666 4.95723 10.1899 8.60352 10.1899Z"
+                              fill="#3040D0"
+                            />
+                          </svg>
+                        </Link>
                       </div>
                     </div>
                   </>

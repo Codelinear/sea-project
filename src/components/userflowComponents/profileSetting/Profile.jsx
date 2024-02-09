@@ -81,7 +81,7 @@ const Profile = () => {
       setInputerror(false);
       const dataa = { Name };
       axios
-        .post("http://localhost:7700/addname", dataa)
+        .post("191.101.0.42/addname", dataa)
         // .then((response) => response.json())
         .then((response) => {
           if (response) {
@@ -105,7 +105,6 @@ const Profile = () => {
       // setErrorpageemail(true);
       // setInputerroremail(false);
       setInputerroremail(true);
-
       setErrorpageemail(false);
       // alert("Please enter")
       return;
@@ -210,17 +209,19 @@ const Profile = () => {
     }
   }, [cooldown]);
 
-
-  const [otpp, setOtpp] = useState(['', '', '', '', '', '']);
+  const [otpp, setOtpp] = useState(["", "", "", "", "", ""]);
 
   const handleOtpChange = (index, value) => {
     const newOtp = [...otpp];
     newOtp[index] = value;
     setOtpp(newOtp);
 
-    if (index < otpp.length - 1 && value !== '') {
+    if (index < otpp.length - 1 && value !== "") {
       document.getElementById(`otp-input-${index + 1}`).focus();
     }
+  };
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
   };
   return (
     <>
@@ -355,7 +356,7 @@ const Profile = () => {
 
             <div className="w-[122px] h-[17px] justify-start items-start gap-2 inline-flex mt-5">
               {/* <div className="w-4 h-4 relative" /> */}
-              <Link to="/support">
+              <Link to="/support" onClick={scrollToTop}>
                 <div className="text-indigo-700 text-sm font-medium font-['poppins'] underline ">
                   <div className="flex gap-1 items-center">
                     <img src={help} alt="" />
@@ -634,36 +635,35 @@ const Profile = () => {
                 id="otp-input-1"
               />
               <input
-               id="otp-input-2"
+                id="otp-input-2"
                 type="text"
                 className={inputerrorotp ? "activeError" : "number-otp"}
                 maxLength="1"
                 onChange={(e) => handleOtpChange(2, e.target.value)}
               />
               <input
-               id="otp-input-3"
+                id="otp-input-3"
                 type="text"
                 className={inputerrorotp ? "activeError" : "number-otp"}
                 maxLength="1"
                 onChange={(e) => handleOtpChange(3, e.target.value)}
               />
               <input
-               id="otp-input-4"
+                id="otp-input-4"
                 type="text"
                 className={inputerrorotp ? "activeError" : "number-otp"}
                 maxLength="1"
                 onChange={(e) => handleOtpChange(4, e.target.value)}
               />
               <input
-               onChange={(e) => handleOtpChange(5, e.target.value)}
-               id="otp-input-5"
+                onChange={(e) => handleOtpChange(5, e.target.value)}
+                id="otp-input-5"
                 type="text"
                 className={inputerrorotp ? "activeError" : "number-otp"}
                 maxLength="1"
               />
             </div>
 
-           
             <div className="verify-otp-profile mt-10">
               <button
                 // onClick={handleNextStepverify}
@@ -703,7 +703,6 @@ const Profile = () => {
                 `You can request OTP in(${cooldown}s)
               `}
             </p>
-
 
             {errorpageotp ? (
               <>

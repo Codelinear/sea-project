@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./login.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+// import { GoogleLogin } from "@react-oauth/google";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Otp from "../../authComponent/Otp/Otp";
 
 const Login = () => {
@@ -10,11 +11,38 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorpage, setErrorpage] = useState("");
-
   const [email, setEmail] = useState("");
-
   const [errorpageemail, setErrorpageemail] = useState(false);
   const [inputerroremail, setInputerroremail] = useState(false);
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+          navigate("/");
+          window.location.reload();
+          alert("Login successful");
+          localStorage.setItem("token", user.access_token);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
   const onEmailClick = (e) => {
     if (email) {
@@ -44,7 +72,7 @@ const Login = () => {
 
     const data = { username, password };
     const response = await axios
-      .post("http://localhost:7700/login", data)
+      .post("191.101.0.42/login", data)
       // .then((response) => response.json())
       .then((response) => {
         if (response) {
@@ -52,11 +80,9 @@ const Login = () => {
           alert("Login successful");
           console.log(response.data.token);
           console.log(response);
-          localStorage.setItem("token", response.token);
+          localStorage.setItem("token", response.data.token);
           navigate("/");
           window.location.reload();
-
-          // Store the token in local storage or a secure cookie
         } else {
           console.error("Login failed");
         }
@@ -68,7 +94,7 @@ const Login = () => {
 
   function sendUserDataToServer(user) {
     axios
-      .post("http://localhost:5000/store_email")
+      .post("191.101.0.42/store_email")
       .then((response) => response.json())
       .then((data) => {
         console.log(data.message);
@@ -80,6 +106,11 @@ const Login = () => {
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
+  };
+  // log out function to log the user out of google and set the profile array to null
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
   };
 
   return (
@@ -166,12 +197,12 @@ const Login = () => {
               class="google-buttonnnn flex items-center justify-center flex-col"
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
-                const user = {
-                  id: credentialResponse.getBasicProfile().getId(),
-                  name: credentialResponse.getBasicProfile().getName(),
-                  email: credentialResponse.getBasicProfile().getEmail(),
-                  // Add more properties as needed
-                };
+                // const user = {
+                //   id: credentialResponse.getBasicProfile().getId(),
+                //   name: credentialResponse.getBasicProfile().getName(),
+                //   email: credentialResponse.getBasicProfile().getEmail(),
+                //   // Add more properties as needed
+                // };
 
                 sendUserDataToServer(user);
               }}
@@ -180,7 +211,10 @@ const Login = () => {
               }}
             /> */}
 
-                <button className="w-[330px] h-[51px] pl-[20.25px] pr-[14.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex max-sm:w-full">
+                <button
+                  onClick={() => login()}
+                  className="w-[330px] h-[51px] pl-[20.25px] pr-[14.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex max-sm:w-full"
+                >
                   <div className="self-stretch justify-start items-center gap-[19.50px] inline-flex">
                     <div class="google-bg">
                       {/* <!-- <img src="./assets/google.svg"alt=""> --> */}
@@ -233,7 +267,7 @@ const Login = () => {
             <button
               onClick={onEmailClick}
               className="forgot-pass-email bg-[#3040D0]"
-            > 
+            >
               <span className="text-white">Request OTP</span>
             </button>
           </div>

@@ -39,7 +39,7 @@
 }
 
 .fishh {
-  animation: scroll 30s linear infinite;
+  animation: scroll 10s linear infinite;
 }
 
 @keyframes scroll {
@@ -47,7 +47,7 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(calc(-50% - 1rem));
+    transform: translateX(calc(-34%));
   }
 }
 

@@ -4,6 +4,7 @@ import Roas from "../raos/Roas";
 import FAQ from "../faq/FAQ";
 import Serp from "../localserp/Serp";
 import { useLocation } from "react-router-dom";
+import StartTrial from "../../subComponents/freetrails/startTrial/startTrial";
 
 const Othertools = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -11,7 +12,7 @@ const Othertools = () => {
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-const tabs = [
+  const tabs = [
     {
       label: "Local SERP Checker",
       content: <Serp onButtonClick={handleTabClick} />,
@@ -76,6 +77,7 @@ const tabs = [
           </div>
         </>
       )}
+      <StartTrial />
     </>
   );
 };

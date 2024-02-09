@@ -66,7 +66,7 @@ const PriceFaq = () => {
 
       <div className="faq-contact-btn w-full flex justify-center items-center my-8">
         Didn’t find your question?
-        <button>
+        <button className="ml-1">
           <Link to={"/contact"}>Contact Us</Link>
         </button>
       </div>

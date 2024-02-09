@@ -12,6 +12,7 @@ import down from "./assets/down-arrow.svg";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import StartTrial from "../../subComponents/freetrails/startTrial/startTrial";
 
 const Home = () => {
   const scrollToTop = () => {
@@ -232,7 +233,9 @@ const Home = () => {
                 Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
                 cursus varius ut.
               </p>
-              <button class="clutch">Clutch</button>
+              <Link to={"/"} onClick={scrollToTop}>
+                <button class="clutch">Clutch</button>
+              </Link>
             </div>
 
             <div class="review-card flex-col mt-20">
@@ -386,6 +389,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <StartTrial />
     </>
   );
 };

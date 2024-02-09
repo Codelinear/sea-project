@@ -1,6 +1,7 @@
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import Blog from "./components/pages/blog/Blog";
+import Blogpage from "./components/pages/blogPage/blogPages";
 import Contact from "./components/pages/contact/Contact";
 import FAQ from "./components/pages/faq/FAQ";
 import Home from "./components/pages/home/Home";
@@ -19,11 +20,8 @@ import Qa from "./components/pages/qa/Qa";
 import Payment from "./components/pages/payment/Payment";
 function App() {
   function ScrollToTop() {
-    // const history = useHistory();
     useEffect(() => {
-      // const unlisten = history.listen(() => {
-      window.scrollTo(0, 0); // Scroll to the top of the page
-      // });
+      window.scrollTo(0, 0);
     }, []);
 
     return null;
@@ -47,6 +45,7 @@ function App() {
           <Route exact path="/support" element={<Support />} />
           <Route exact path="/qa" element={<Qa />} />
           <Route exact path="/payment" element={<Payment />} />
+          <Route exact path="/Blog1" element={<Blogpage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

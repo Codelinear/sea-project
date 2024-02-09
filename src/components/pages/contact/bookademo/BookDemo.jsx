@@ -59,7 +59,7 @@ const BookDemo = () => {
     const data = { name, email, phone, company, companysize, role, perpose };
     console.log(data);
     const response = await axios
-      .post("http://localhost:5000/send_mail_book", data)
+      .post("http://localhost:7700/send_mail_book", data)
       .then((response) => {
         if (response.status === 200) {
           alert("Your Application was sent successfully");

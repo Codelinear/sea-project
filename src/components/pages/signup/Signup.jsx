@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signup.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 
 const Signup = () => {
@@ -10,7 +11,39 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [errorpage, setErrorpage] = useState("");
   const navigate = useNavigate("");
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
 
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+          navigate("/");
+          window.location.reload();
+          alert("Login successful");
+          localStorage.setItem("token", user.access_token);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+  };
   const handleRegistration = async (e) => {
     if (!username) {
       setErrorpage(" username is required");
@@ -22,15 +55,16 @@ const Signup = () => {
     // Send a POST request to your backend API to handle user registration
 
     const data = { username, password };
+    console.log(data);
     const response = await axios
-      .post("http://localhost:5000/register", data)
+      .post("191.101.0.42/register", data)
       .then((response) => {
         if (response.status === 200) {
           console.log("Registration successful");
           alert("Registration successful");
           navigate("/login");
         } else {
-          console.error("Registration failed");
+          console.error(error);
         }
       })
       .catch((error) => {
@@ -131,7 +165,10 @@ const Signup = () => {
               <span class="ml">Continue with Apple</span>
             </button> */}
 
-            <div className="w-[330px] max-sm:w-full h-[51px] pl-[20.25px] pr-[14.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex">
+            <div
+              onClick={() => login()}
+              className="cursor-pointer w-[330px] max-sm:w-full h-[51px] pl-[20.25px] pr-[14.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex"
+            >
               <div className="self-stretch justify-start items-center gap-[19.50px] inline-flex">
                 <div class="google-bg">
                   {/* <!-- <img src="./assets/google.svg"alt=""> --> */}

@@ -40,6 +40,10 @@ const Subscription = ({ onButtonClick }) => {
   const handleNextStepback = () => {
     setCurrentStep(currentStep - 1);
   };
+  
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <>
       <div className="subscription  pl-[100px]">
@@ -124,7 +128,7 @@ const Subscription = ({ onButtonClick }) => {
                 )}
 
                 <button className="view-features text-[16px]">
-                  <Link to="/price" className="text-[16px]">
+                  <Link to="/price" className="text-[16px]" onClick={scrollToTop}>
                     View features covered
                   </Link>
                 </button>

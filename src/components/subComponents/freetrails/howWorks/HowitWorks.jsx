@@ -1,120 +1,95 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from "swiper/modules";
+
 import "./how.scss";
 const HowitWorks = () => {
-  const [scrollPercentage, setScrollPercentage] = useState(0);
-  const parentRef = useRef(null);
-
-  const updateScrollPercentage = () => {
-    // const parentDiv = document.getElementsByClassName("parent-scroll-bar");
-    const parentDiv = document.getElementsByClassName("parent-scroll-bar")[0];
-
-    if (parentDiv) {
-      const scrollX = parentDiv.scrollLeft;
-      const scrollWidth = parentDiv.scrollWidth;
-      const clientWidth = parentDiv.clientWidth;
-      const scrollPercent = (scrollX / (scrollWidth - clientWidth)) * 100 || 0;
-      setScrollPercentage(scrollPercent);
-      console.log("scroll");
-      console.log("scrollX:", scrollX);
-      console.log("scrollWidth:", scrollWidth);
-      console.log("clientWidth:", clientWidth);
-    } else {
-      console.log("not scrollf");
-    }
-  };
-
-  useEffect(() => {
-    // const parentDiv = document.getElementsByClassName("parent-scroll-bar");
-    const parentDiv = document.getElementsByClassName("parent-scroll-bar")[0];
-    if (parentDiv) {
-      parentDiv.addEventListener("scroll", updateScrollPercentage);
-      return () => {
-        parentDiv.removeEventListener("scroll", updateScrollPercentage);
-      };
-    }
-  }, []);
-
   return (
     <>
       <div className="how-it-works">
         <div className="head-works ">
           <h3>How does it work?</h3>
         </div>
-
-        <div className="flex w- parent-scroll-bar">
-          <div className="progressh-card flex gap-4">
-            <div className="num-one">
-              <div className="one-number">
-                <h3>1</h3>
-              </div>
-              <div className="amet-magnis">
-                <h2>Amet magnis</h2>
-                <p>
-                  Ac scelerisque risus quisque odio nisl. Condimentum in lacus
-                  viverra mauris scelerisque.
-                </p>
-              </div>
+      </div>
+      <div className="slid">
+        <Swiper
+          direction="horizontal"
+          mousewheel={{ releaseOnEdges: true }}
+          freeMode={{ enabled: true, slidesPerGroup: 1 }}
+          pagination={{
+            type: 'progressbar',
+          }}
+          spaceBetween={10}
+          slidesPerView={3}
+          releaseOnEdges={true}
+          modules={[Mousewheel, Pagination]}
+          className="swip mySwiper"
+        >
+          <SwiperSlide>
+            <div className="slides">
+              <h1 className="slide-cont-no ">1</h1>
+              <h2 className="slide-cont">Amet magus</h2>
+              <p className="slide-cont-p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Molestiae, consequuntur.
+              </p>
             </div>
-            <div className="num-one">
-              <div className="one-number">
-                <h3>2</h3>
-              </div>
-              <div className="amet-magnis">
-                <h2>Amet magnis</h2>
-                <p>
-                  Ac scelerisque risus quisque odio nisl. Condimentum in lacus
-                  viverra mauris scelerisque.
-                </p>
-              </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="slides">
+              <h1 className="slide-cont-no ">2</h1>
+              <h2 className="slide-cont">Amet magus</h2>
+              <p className="slide-cont-p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Molestiae, consequuntur.
+              </p>
             </div>
-            <div className="num-one">
-              <div className="one-number">
-                <h3>3</h3>
-              </div>
-              <div className="amet-magnis">
-                <h2>Amet magnis</h2>
-                <p>
-                  Ac scelerisque risus quisque odio nisl. Condimentum in lacus
-                  viverra mauris scelerisque.
-                </p>
-              </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="slides">
+              <h1 className="slide-cont-no ">3</h1>
+              <h2 className="slide-cont">Amet magus</h2>
+              <p className="slide-cont-p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Molestiae, consequuntur.
+              </p>
             </div>
-            <div className="num-one">
-              <div className="one-number">
-                <h3>4</h3>
-              </div>
-              <div className="amet-magnis">
-                <h2>Amet magnis</h2>
-                <p>
-                  Ac scelerisque risus quisque odio nisl. Condimentum in lacus
-                  viverra mauris scelerisque.
-                </p>
-              </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="slides">
+              <h1 className="slide-cont-no ">4</h1>
+              <h2 className="slide-cont">Amet magus</h2>
+              <p className="slide-cont-p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Molestiae, consequuntur.
+              </p>
             </div>
-          </div>
-        </div>
-
-        <div className="flex pl-40 works-bar">
+          </SwiperSlide>
+          <SwiperSlide></SwiperSlide>
+        </Swiper>
+      </div>
+      {/* <div className="flex pl-40 works-bar">
+        <div
+          style={{
+            height: "10px",
+            width: "568px",
+            background: "#E3E6F9",
+            zIndex: 1000,
+          }}
+          className="scroll-bar-fill"
+        >
           <div
             style={{
-              height: "10px",
-              width: "568px",
-              background: "#E3E6F9",
-              zIndex: 1000,
+              height: "100%",
+              width: `${scrollPercentage}%`,
+              background: "#3040D0",
+              transition: "width 0.1s ease",
             }}
-            className="scroll-bar-fill"
-          >
-            <div
-              style={{
-                height: "100%",
-                width: `${scrollPercentage}%`,
-                background: "#3040D0",
-                transition: "width 0.1s ease",
-              }}
-            />
-          </div>
+          />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

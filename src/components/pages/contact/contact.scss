@@ -11,7 +11,9 @@
 .container {
   margin: 20px;
 }
-
+textarea{
+  resize: none;
+}
 .custom-select-icon-contact  {
   position: absolute;
   right: 10px;

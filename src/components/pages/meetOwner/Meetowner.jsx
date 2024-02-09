@@ -4,6 +4,7 @@ import astronut from "./assets/image-from-rawpixel-id-6283822-original 1.png";
 import face from "./assets/tweet.svg";
 import linked from "./assets/linked.svg";
 import quirk from "./assets/Frame 1000002249.png";
+import StartTrial from "../../subComponents/freetrails/startTrial/startTrial";
 const Meetowner = () => {
   return (
     <>
@@ -89,6 +90,7 @@ const Meetowner = () => {
           </div>
         </div>
       </section>
+      <StartTrial />
     </>
   );
 };
