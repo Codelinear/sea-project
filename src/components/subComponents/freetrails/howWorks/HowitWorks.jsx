@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import 'swiper/css/pagination';
-import { Mousewheel, Pagination } from "swiper/modules";
-
 import "./how.scss";
+import Swiper from "swiper";
+import { SwiperSlide } from "swiper/react";
+import { Mousewheel, Pagination } from "swiper/modules";
 const HowitWorks = () => {
   return (
     <>
