@@ -3,30 +3,25 @@ import "./serp.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-import countryList from "react-select-country-list";
+// import countryList from "react-select-country-list";
 
 import googlesvg from "./google.svg";
 import search from "./search.svg";
 
 // import React, { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
-import ReactLanguageSelect from "react-languages-select";
+// import ReactLanguageSelect from "react-languages-select";
 //import css module
-import "react-languages-select/css/react-languages-select.css";
+// import "react-languages-select/css/react-languages-select.css";
 
 //OR import sass module
-import "react-languages-select/scss/react-languages-select.scss";
-
-import {
-  LanguageSelector as Language,
-  emptyLanguage,
-} from "@kekalma/language-selector";
+// import "react-languages-select/scss/react-languages-select.scss";
 
 const Serp = ({ onButtonClick }) => {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
+  // const options = useMemo(() => countryList().getData(), []);
   const [selected, setSelected] = useState("");
 
   const changeHandler = (value) => {
@@ -191,17 +186,17 @@ const Serp = ({ onButtonClick }) => {
               </span>
               <span>
                 <div class="search relative">
-                  <ReactFlagsSelect
+                  {/* <ReactFlagsSelect
                     searchable
                     selected={selected}
                     onSelect={(code) => setSelected(code)}
-                  />
+                  /> */}
                   <div class="absolute icon-search-flag"></div>
                 </div>
               </span>
               <span>
                 <div class="search relative">
-                  <ReactLanguageSelect searchable={true} defaultLanguage="en" />
+                  {/* <ReactLanguageSelect searchable={true} defaultLanguage="en" /> */}
                   <div class="absolute icon-search-flag"></div>
                 </div>
               </span>
@@ -486,7 +481,7 @@ const Serp = ({ onButtonClick }) => {
                   className="max-md:w-[280px] max-md:justify-start"
                 />
               </div>
-              <div class="term-input ml-4 fl">
+              {/* <div class="term-input ml-4 fl">
                 <span>Language</span>
                 <div class="search relative">
                   <ReactLanguageSelect
@@ -495,7 +490,7 @@ const Serp = ({ onButtonClick }) => {
                     className="max-md:w-[280px]"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div class="radio-section mt-16 flex justify-around max-sm:mt-0">
