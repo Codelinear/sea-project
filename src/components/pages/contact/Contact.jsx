@@ -77,24 +77,34 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !phone || !message) {
-      setErrorpage("all fields required ");
-      return;
-    }
+    // const webhookUrl =  // replace with your actual Zapier webhook URL
     const data = { name, email, phone, message };
-    console.log(data);
-    const response = await axios
-      .post("https://codelinear.in/send_mail", data)
-      .then((response) => {
-        if (response.status === 200) {
-          alert("Your Application was sent successfully");
-          window.location.reload();
+    try {
+      const response = await fetch(
+        "https://hooks.zapier.com/hooks/catch/10973939/2oiq0x6/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         }
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      );
+
+      console.log(response);
+      if (response.ok) {
+        // Handle success (e.g., show a success message)
+        alert("Form submitted successfully!");
+        console.log("suncess:");
+      } else {
+        // Handle error (e.g., show an error message)
+        // alert('Form submission failed.')
+        console.log("Error submitting form:");
+      }
+    } catch (error) {
+      console.log("Error submitting form:", error);
+      alert("Form submission failed.");
+    }
   };
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
