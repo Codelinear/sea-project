@@ -49,32 +49,32 @@ const Navbar = () => {
                 >
                   <div class="ul mr16 ">
                     <ul class="unorders flex items-center flex-col">
-                      <li class="items">
+                      {/* <li class="items">
                         <Link onClick={scrollToTop} to={"/freetrail"}>
                           Free Trial
                         </Link>
-                      </li>
+                      </li> */}
 
-                      <li class="items">
+                      {/* <li class="items">
                         <Link onClick={scrollToTop} to={"/product"}>
                           Our Tools{" "}
                         </Link>
-                      </li>
+                      </li> */}
                       <li class="items">
                         <Link onClick={scrollToTop} to={"/price"}>
                           Pricing{" "}
                         </Link>
                       </li>
-                      <li class="items">
+                      {/* <li class="items">
                         <Link onClick={scrollToTop} to={"/owner"}>
                           Meet the Owner{" "}
                         </Link>
-                      </li>
-                      <li class="items">
+                      </li> */}
+                      {/* <li class="items">
                         <Link onClick={scrollToTop} to={"/blog"}>
                           Blogs{" "}
                         </Link>
-                      </li>
+                      </li> */}
                       <li class="items">
                         <Link onClick={scrollToTop} to={"/contact"}>
                           Contact Us{" "}
@@ -82,7 +82,7 @@ const Navbar = () => {
                       </li>
                     </ul>
                   </div>
-                  {token ? (
+                  {/* {token ? (
                     "logged in "
                   ) : (
                     <div class="nav-buttons flex items-center justify-center flex-col">
@@ -97,7 +97,7 @@ const Navbar = () => {
                         </Link>
                       </button>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </>
               {/* ) : ( */}
@@ -122,34 +122,34 @@ const Navbar = () => {
               <div class="lists flex items-center justify-between">
                 <div class="ul mr-16 kl max-xl:mr-0">
                   <ul class="unorders flex items-center">
-                    <li class="items">
+                    {/* <li class="items">
                       <Link onClick={scrollToTop} to={"/freetrail"}>
                         Free Trial
                       </Link>
-                    </li>
+                    </li> */}
                     {/* <li class="items">
                   <Link to={"/"}>How it works</Link>
                 </li> */}
-                    <li class="items">
+                    {/* <li class="items">
                       <Link onClick={scrollToTop} to={"/product"}>
                         Our Tools
                       </Link>
-                    </li>
+                    </li> */}
                     <li class="items">
                       <Link onClick={scrollToTop} to={"/price"}>
                         Pricing
                       </Link>
                     </li>
-                    <li class="items">
+                    {/* <li class="items">
                       <Link onClick={scrollToTop} to={"/owner"}>
                         Meet the Owner
                       </Link>
-                    </li>
-                    <li class="items">
+                    </li> */}
+                    {/* <li class="items">
                       <Link onClick={scrollToTop} to={"/blog"}>
                         Blogs
                       </Link>
-                    </li>
+                    </li> */}
                     <li class="items">
                       <Link onClick={scrollToTop} to={"/contact"}>
                         Contact Us
@@ -157,7 +157,7 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </div>
-                {token ? (
+                {/* {token ? (
                   <>
                     <div className="logout flex gap-10 items-center">
                       <div className="log">
@@ -204,7 +204,7 @@ const Navbar = () => {
                       </Link>
                     </button>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </nav>
