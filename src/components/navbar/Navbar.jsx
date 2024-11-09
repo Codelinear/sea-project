@@ -34,7 +34,7 @@ const Navbar = () => {
       {width <= 900 ? (
         <>
           <nav>
-            <div class=" mobile navbar flex items-start justify-between mx-12 -full relative min-[1700px]:mx-20 pt-2">
+            <div class=" mobile navbar flex items-start justify-between mx-12 -full relative min-[1700px]:mx-20 pt-5">
               <div class="logo">
                 <Link to={"/"} onClick={scrollToTop}>
                   <img class=" logo-img" src={logo} alt="" />
