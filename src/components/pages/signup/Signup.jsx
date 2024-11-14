@@ -1,211 +1,113 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./signup.scss";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [errorpage, setErrorpage] = useState("");
-  const navigate = useNavigate("");
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const navigate = useNavigate();
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
-  });
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-          navigate("/");
-          window.location.reload();
-          alert("Login successful");
-          localStorage.setItem("token", user.access_token);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
-  const logOut = () => {
-    googleLogout();
-    setProfile(null);
-  };
   const handleRegistration = async (e) => {
-    if (!username) {
-      setErrorpage(" username is required");
-      return;
-    } else if (!password) {
-      setErrorpage("password is required");
+    e.preventDefault();
+
+    if (!username || !email || !password) {
+      setErrorpage("All fields are required");
       return;
     }
-    // Send a POST request to your backend API to handle user registration
 
-    const data = { username, password };
-    console.log(data);
-    const response = await axios
-      .post("191.101.0.42/register", data)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("Registration successful");
-          alert("Registration successful");
-          navigate("/login");
-        } else {
-          console.error(error);
-        }
-      })
-      .catch((error) => {
-        console.error("Registration failed:", error);
-        setError(error);
+    try {
+      // Sending a POST request using fetch
+      const response = await fetch("/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
       });
+
+      if (response.ok) {
+        console.log("Registration successful");
+        alert("Registration successful");
+        navigate("/login");
+      } else {
+        const responseData = await response.json();
+        throw new Error(responseData.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      setError(error.message);
+    }
   };
+
   return (
-    <>
-      <section class="create-account mt-56  flex items-center justify-center">
-        <div class="main-account flex items-center justify-center flex-col">
-          <div class="creat">Create your account</div>
+    <section className="create-account mt-56 flex items-center justify-center">
+      <div className="main-account flex items-center justify-center flex-col">
+        <div className="creat">Create your account</div>
 
-          <div class="input-section pt-10 flex flex-col items-center justify-center">
-            <div>
-              <div class="span">Email</div>
-              <div class="input-field">
-                <input
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  type="email"
-                  placeholder="Enter Your Email"
-                />
-              </div>
+        <div className="input-section pt-10 flex flex-col items-center justify-center">
+          <div>
+            <div className="span">Username</div>
+            <div className="input-field">
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                type="text"
+                placeholder="Enter Your Username"
+              />
             </div>
-            <div class="mt-2">
-              <div class="span">Password</div>
-              <div class="input-field">
-                <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  minlength="8"
-                  placeholder="Create Your Password"
-                  required
-                />
-              </div>
+          </div>
+          <div className="mt-2">
+            <div className="span">Email</div>
+            <div className="input-field">
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                type="email"
+                placeholder="Enter Your Email"
+              />
             </div>
-
-            {error && (
-              <div className="error-message text-[red]">
-                {error.response.data.message}
-              </div>
-            )}
-
-            {errorpage ? (
-              <div className="error-message text-[red]">{errorpage}</div>
-            ) : (
-              ""
-            )}
-
-            <div class="create-button pt-8 ">
-              <button onClick={handleRegistration}>Create Account</button>
-
-              <p class="alraeady mt-4 flex justify-center">
-                Already have an account?
-                <Link to={"/login"}>
-                  <span>Login</span>
-                </Link>
-              </p>
-            </div>
-
-            <div class="flex py-7 horizontal">
-              {/* <!-- <img src="./assets/Frame 1000002212.svg"
-                        alt=""> --> */}
+          </div>
+          <div className="mt-2">
+            <div className="span">Password</div>
+            <div className="input-field">
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                minLength="8"
+                placeholder="Create Your Password"
+                required
+              />
             </div>
           </div>
 
-          <div class="google-button  flex items-center justify-center flex-col ">
-            {/* <button class="google flex items-center justify-start">
-              <div class="google-bg">
-              </div>
-              <span class="ml">Continue with Google</span>
-            </button> */}
+          {error && <div className="error-message text-[red]">{error}</div>}
+          {errorpage && (
+            <div className="error-message text-[red]">{errorpage}</div>
+          )}
 
-            {/* <GoogleLogin
-              class="google-button flex items-center justify-center flex-col"
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-                const user = {
-                  id: credentialResponse.getBasicProfile().getId(),
-                  name: credentialResponse.getBasicProfile().getName(),
-                  email: credentialResponse.getBasicProfile().getEmail(),
-                  // Add more properties as needed
-                };
+          <div className="create-button pt-8">
+            <button onClick={handleRegistration}>Create Account</button>
 
-                // sendUserDataToServer(user);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            /> */}
-            {/* <button class="google flex items-center justify-start mt-3">
-              <div class="apple-bg">
-            
-              </div>
-              <span class="ml">Continue with Apple</span>
-            </button> */}
-
-            <div
-              onClick={() => login()}
-              className="cursor-pointer w-[330px] max-sm:w-full h-[51px] pl-[20.25px] pr-[14.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex"
-            >
-              <div className="self-stretch justify-start items-center gap-[19.50px] inline-flex">
-                <div class="google-bg">
-                  {/* <!-- <img src="./assets/google.svg"alt=""> --> */}
-                </div>
-                <div className="text-zinc-600 text-base font-normal font-['poppins'] leading-normal">
-                  Continue with Google
-                </div>
-              </div>
-            </div>
-            {/* Continue with Google */}
-            {/* </span>
-            </button> */}
-            {/* <button class="google flex items-center justify-start mt-3">
-              <div class="apple-bg">
-                
-              </div>
-              <span class="ml-">Sign in with Apple</span>
-            </button> */}
-
-            <div className="w-[330px] max-sm:w-full h-[51px] mt-5 pl-[20.25px] pr-[10.75px] py-[9.75px] bg-white rounded-md border border-black border-opacity-50 justify-start items-center inline-flex">
-              <div className="self-stretch justify-start items-center gap-[19.50px] inline-flex">
-                <div class="apple-bg">
-                  {/* <!-- <img src="./assets/google.svg"alt=""> --> */}
-                </div>
-                <div className="text-zinc-600 text-base font-normal font-['poppins'] leading-normal">
-                  Continue with Apple
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class=" eclips pt-16">
-            <img src="./assets/Ellipse 2471.svg" alt="" />
+            <p className="alraeady mt-4 flex justify-center">
+              Already have an account?
+              <Link to={"/login"}>
+                <span>Login</span>
+              </Link>
+            </p>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

@@ -82,7 +82,7 @@ const Navbar = () => {
                       </li>
                     </ul>
                   </div>
-                  {/* {token ? (
+                  {token ? (
                     "logged in "
                   ) : (
                     <div class="nav-buttons flex items-center justify-center flex-col">
@@ -97,7 +97,7 @@ const Navbar = () => {
                         </Link>
                       </button>
                     </div>
-                  )} */}
+                  )}
                 </div>
               </>
               {/* ) : ( */}
@@ -157,7 +157,7 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </div>
-                {/* {token ? (
+                {token ? (
                   <>
                     <div className="logout flex gap-10 items-center">
                       <div className="log">
@@ -204,7 +204,7 @@ const Navbar = () => {
                       </Link>
                     </button>
                   </div>
-                )} */}
+                )}
               </div>
             </div>
           </nav>
