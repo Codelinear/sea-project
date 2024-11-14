@@ -6,6 +6,17 @@ require("dotenv").config();
 
 const router = express.Router();
 
+// Helper functions to create tokens
+const createAccessToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "15m" });
+};
+
+const createRefreshToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: "7d",
+  });
+};
+
 // Register route
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
@@ -49,11 +60,47 @@ router.post("/login", (req, res) => {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
-      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      // Create tokens
+      const accessToken = createAccessToken(user.id);
+      const refreshToken = createRefreshToken(user.id);
 
-      res.json({ token, message: "Login successful" });
+      // Store refresh token in DB
+      db.query(
+        "UPDATE user SET refresh_token = ? WHERE id = ?",
+        [refreshToken, user.id],
+        (err) => {
+          if (err) {
+            return res.status(500).json({ message: "Token storage failed" });
+          }
+
+          res.json({ accessToken, refreshToken, message: "Login successful" });
+        }
+      );
+    }
+  );
+});
+
+// Token refresh route
+router.post("/refresh-token", (req, res) => {
+  const { token } = req.body;
+  if (!token)
+    return res.status(401).json({ message: "Refresh token required" });
+
+  db.query(
+    "SELECT * FROM user WHERE refresh_token = ?",
+    [token],
+    (err, results) => {
+      if (err || results.length === 0) {
+        return res.status(403).json({ message: "Invalid refresh token" });
+      }
+
+      jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err)
+          return res.status(403).json({ message: "Token verification failed" });
+
+        const accessToken = createAccessToken(user.id);
+        res.json({ accessToken });
+      });
     }
   );
 });

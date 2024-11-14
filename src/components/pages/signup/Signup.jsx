@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       // Sending a POST request using fetch
-      const response = await fetch("/register", {
+      const response = await fetch("/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const Signup = () => {
 
       if (response.ok) {
         console.log("Registration successful");
-        alert("Registration successful");
+        //alert("Registration successful");
         navigate("/login");
       } else {
         const responseData = await response.json();
