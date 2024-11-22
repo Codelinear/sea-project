@@ -1,19 +1,31 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: "search_engine_amplify",
+  waitForConnections: true,
+  connectionLimit: 20,
+  queueLimit: 0,
 });
 
-connection.connect((err) => {
+pool.getConnection((err, connection) => {
   if (err) {
-    console.error("Database connection failed:", err.stack);
-    return;
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      console.error("Database connection was closed.");
+    } else if (err.code === "ER_CON_COUNT_ERROR") {
+      console.error("Database has too many connections.");
+    } else if (err.code === "ECONNREFUSED") {
+      console.error("Database connection was refused.");
+    } else {
+      console.error("Database connection error:", err.message);
+    }
   }
-  console.log("Connected to MySQL database.");
+
+  if (connection) connection.release();
+  console.log("Connected to MySQL database via pool.");
 });
 
-module.exports = connection;
+module.exports = pool.promise();

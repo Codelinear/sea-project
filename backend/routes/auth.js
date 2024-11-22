@@ -1,21 +1,19 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../db");
+const db = require("../db"); // Updated to use promise-based queries
 require("dotenv").config();
 
 const router = express.Router();
 
-// Helper functions to create tokens
-const createAccessToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "15m" });
-};
+// Helper functions
+const createAccessToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "15m" });
 
-const createRefreshToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, {
+const createRefreshToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "7d",
   });
-};
 
 // Register route
 router.post("/register", async (req, res) => {
@@ -25,84 +23,91 @@ router.post("/register", async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const [result] = await db.execute(
+      "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
+      [username, email, hashedPassword]
+    );
 
-  db.query(
-    "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
-    [username, email, hashedPassword],
-    (err, results) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ message: "User registration failed", error: err });
-      }
-      res.status(201).json({ message: "User registered successfully" });
-    }
-  );
+    res.status(201).json({
+      message: "User registered successfully",
+      userId: result.insertId,
+    });
+  } catch (err) {
+    console.error("Error during registration:", err);
+    res
+      .status(500)
+      .json({ message: "User registration failed", error: err.message });
+  }
 });
 
 // Login route
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  db.query(
-    "SELECT * FROM user WHERE email = ?",
-    [email],
-    async (err, results) => {
-      if (err || results.length === 0) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      const user = results[0];
-      const isMatch = await bcrypt.compare(password, user.password);
-
-      if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      // Create tokens
-      const accessToken = createAccessToken(user.id);
-      const refreshToken = createRefreshToken(user.id);
-
-      // Store refresh token in DB
-      db.query(
-        "UPDATE user SET refresh_token = ? WHERE id = ?",
-        [refreshToken, user.id],
-        (err) => {
-          if (err) {
-            return res.status(500).json({ message: "Token storage failed" });
-          }
-
-          res.json({ accessToken, refreshToken, message: "Login successful" });
-        }
-      );
+  try {
+    const [rows] = await db.execute("SELECT * FROM user WHERE email = ?", [
+      email,
+    ]);
+    if (rows.length === 0) {
+      return res.status(401).json({ message: "Invalid credentials" });
     }
-  );
+
+    const user = rows[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const accessToken = createAccessToken(user.id);
+    const refreshToken = createRefreshToken(user.id);
+
+    await db.execute("UPDATE user SET refresh_token = ? WHERE id = ?", [
+      refreshToken,
+      user.id,
+    ]);
+
+    res.json({ accessToken, refreshToken, message: "Login successful" });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ message: "Login failed", error: err.message });
+  }
 });
 
-// Token refresh route
-router.post("/refresh-token", (req, res) => {
+// Refresh token route
+router.post("/refresh-token", async (req, res) => {
   const { token } = req.body;
-  if (!token)
-    return res.status(401).json({ message: "Refresh token required" });
 
-  db.query(
-    "SELECT * FROM user WHERE refresh_token = ?",
-    [token],
-    (err, results) => {
-      if (err || results.length === 0) {
-        return res.status(403).json({ message: "Invalid refresh token" });
+  if (!token) {
+    return res.status(401).json({ message: "Refresh token required" });
+  }
+
+  try {
+    const [rows] = await db.execute(
+      "SELECT * FROM user WHERE refresh_token = ?",
+      [token]
+    );
+    if (rows.length === 0) {
+      return res.status(403).json({ message: "Invalid refresh token" });
+    }
+
+    const user = rows[0];
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: "Token verification failed" });
       }
 
-      jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err)
-          return res.status(403).json({ message: "Token verification failed" });
-
-        const accessToken = createAccessToken(user.id);
-        res.json({ accessToken });
-      });
-    }
-  );
+      const accessToken = createAccessToken(user.id);
+      res.json({ accessToken });
+    });
+  } catch (err) {
+    console.error("Error refreshing token:", err);
+    res
+      .status(500)
+      .json({ message: "Failed to refresh token", error: err.message });
+  }
 });
 
 module.exports = router;
