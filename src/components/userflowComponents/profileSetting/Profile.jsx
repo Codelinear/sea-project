@@ -42,6 +42,46 @@ const Profile = () => {
   // otp input
   const [otp, setOtp] = useState("");
 
+  const [userData, setUserData] = useState(null);
+  const [trialCredits, setTrialCredits] = useState(null);
+
+  // Fetch user data from the backend
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/api/get_account", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token for authentication
+          },
+        });
+        const data = await response.json();
+        setUserData(data[0]); // Store fetched data in state
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    if (userData && userData.display_name) {
+      setName(userData.display_name);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData && userData.email) {
+      setEmail(userData.email);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData && userData.trial_credits) {
+      setTrialCredits(userData.trial_credits);
+    }
+  }, [userData]);
+
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -65,66 +105,71 @@ const Profile = () => {
     setCurrentStep(6);
   };
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:7700/getusermail").then((response) => {
-  //     console.log(response);
-  //     setusermail(response);
-  //   });
-  // });
-
   const handleNextStepback = () => {
     setCurrentStep(currentStep - 1);
   };
-  const onNameClick = (e) => {
-    if (Name) {
-      setErrorpage(true);
-      setInputerror(false);
-      const dataa = { Name };
-      axios
-        .post("191.101.0.42/addname", dataa)
-        // .then((response) => response.json())
-        .then((response) => {
-          if (response) {
-            console.log("name added");
-            // alert("Login successful");
-            console.log("clicked");
-          } else {
-            console.error("Login failed");
-          }
-        });
-      return;
-    }
+  const onNameClick = async (e) => {
+    e.preventDefault(); // Prevent form submission behavior
+
     if (!Name) {
       setInputerror(true);
       setErrorpage(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "/api/set_name", // Update to your correct API route
+        { name: Name },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log(response.data.message); // "Name updated successfully"
+        setErrorpage(true);
+        setInputerror(false);
+      }
+    } catch (error) {
+      console.error("Failed to update name:", error);
+      setErrorpage(false);
+      setInputerror(true);
     }
   };
 
-  const onEmailClick = (e) => {
-    if (!email.includes("@")) {
-      // setErrorpageemail(true);
-      // setInputerroremail(false);
+  const onEmailClick = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (!email || !email.includes("@")) {
       setInputerroremail(true);
       setErrorpageemail(false);
-      // alert("Please enter")
       return;
-    } else {
-      setErrorpageemail(true);
-      setInputerroremail(false);
     }
-    // if (email) {
-    //   setErrorpageemail(true);
-    //   setInputerroremail(false);
 
-    //   return;
-    // }
-    if (!email) {
-      setInputerroremail(true);
+    try {
+      const response = await axios.post(
+        "/api/set_email", // Update to your correct API route
+        { email: email },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
+      if (response.status === 200) {
+        console.log(response.data.message); // "Email updated successfully"
+        setErrorpageemail(true);
+        setInputerroremail(false);
+      }
+    } catch (error) {
+      console.error("Failed to update email:", error);
       setErrorpageemail(false);
+      setInputerroremail(true);
     }
-
-    e.preventDefault();
   };
 
   const onpassClick = (e) => {
@@ -240,6 +285,7 @@ const Profile = () => {
                   type="text"
                   placeholder=""
                   required
+                  value={Name}
                   onChange={(e) => setName(e.target.value)}
                   className={inputerror ? "activeError" : ""}
                 />
@@ -296,6 +342,7 @@ const Profile = () => {
                   id="email"
                   type="email"
                   placeholder=""
+                  value={email}
                   className={inputerroremail ? "activeError" : ""}
                   required
                 />
@@ -314,9 +361,7 @@ const Profile = () => {
                         src={rigth}
                       />
                       <div className="div-wrapper">
-                        <p className="text-wrapper">
-                          Your Name was Email updated
-                        </p>
+                        <p className="text-wrapper">Your Email was updated</p>
                       </div>
                     </div>
                   </div>
@@ -344,15 +389,21 @@ const Profile = () => {
                 ""
               )}
             </div>
-            <div className="password-save w-[309px] mt-8">
+
+            <div className="username-profile flex flex-col gap-4 justify-start w-[309px] pt-5">
+              <label htmlFor="trialCredits">Trial Credits Remaining</label>
+              <p>{trialCredits}</p>
+            </div>
+
+            {/* TODO: Implement functionality to change password */}
+            {/* <div className="password-save w-[309px] mt-8">
               <div className="username-profile flex flex-col gap-4 justify-start">
                 <label htmlFor="password">Password</label>
-                {/* <input id="email" type="text" placeholder="" /> */}
                 <button onClick={handleNextStep} className="save-btn-profile">
                   <span>Change password</span>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             <div className="w-[122px] h-[17px] justify-start items-start gap-2 inline-flex mt-5">
               {/* <div className="w-4 h-4 relative" /> */}
@@ -390,7 +441,7 @@ const Profile = () => {
                 <div className="save-sucess flex gap-20 items-center">
                   <div className="username-profile flex flex-col gap-4 justify-start w-[309px]">
                     <label htmlFor="passowrd">
-                      enter your current password
+                      Enter your current password
                     </label>
                     <input
                       id="passowrd"

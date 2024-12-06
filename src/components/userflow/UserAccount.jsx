@@ -21,14 +21,15 @@ const UserAccount = () => {
       content: <Profile onButtonClick={handleTabClick} />,
       id: "local",
     },
-    {
-      label: "Subscription",
-      content: <Subscription onButtonClick={handleTabClick} />,
-      id: "roas",
-    },
-    { label: "Payment method", content: <PaymentMethod /> },
-    { label: "Payment history", content: <PaymentHistory /> },
-    { label: "Billing Address", content: <BillingAddress /> },
+    //TODO: implement the below functionalities
+    // {
+    //   label: "Subscription",
+    //   content: <Subscription onButtonClick={handleTabClick} />,
+    //   id: "roas",
+    // },
+    //{ label: "Payment method", content: <PaymentMethod /> },
+    //{ label: "Payment history", content: <PaymentHistory /> },
+    //{ label: "Billing Address", content: <BillingAddress /> },
   ];
 
   const [Widht, setWidth] = useState(window.innerWidth);
