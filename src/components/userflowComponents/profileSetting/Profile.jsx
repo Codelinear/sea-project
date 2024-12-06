@@ -7,8 +7,10 @@ import help from "./help.svg";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [usermail, setusermail] = useState("");
 
@@ -55,6 +57,12 @@ const Profile = () => {
           },
         });
         const data = await response.json();
+        console.log(data);
+        if (data.message == "Invalid token") {
+          localStorage.removeItem("token");
+          navigate("/login");
+          window.location.reload();
+        }
         setUserData(data[0]); // Store fetched data in state
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -133,6 +141,11 @@ const Profile = () => {
         setErrorpage(true);
         setInputerror(false);
       }
+      if (response.status === 403) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Failed to update name:", error);
       setErrorpage(false);
@@ -164,6 +177,11 @@ const Profile = () => {
         console.log(response.data.message); // "Email updated successfully"
         setErrorpageemail(true);
         setInputerroremail(false);
+      }
+      if (response.status === 403) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Failed to update email:", error);

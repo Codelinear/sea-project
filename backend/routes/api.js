@@ -87,4 +87,38 @@ router.post("/set_email", async (req, res) => {
   });
 });
 
+router.post("/submit_topic_form", async (req, res) => {
+  const { country, topic } = req.body;
+  const authHeader = req.headers.authorization;
+
+  // Validate token
+  if (!authHeader) {
+    return res.status(401).json({ message: "Authorization token required" });
+  }
+
+  const token = authHeader.split(" ")[1];
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+    const userId = decoded.id;
+    // Process form data
+    try {
+      const webhookResponse = await fetch(
+        "https://hooks.zapier.com/hooks/catch/20672280/2iv2w5c/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ country, topic, userId }),
+        }
+      );
+
+      return res.status(200).json({ message: "Form submitted successfully!" });
+    } catch (webhookError) {
+      console.error("Webhook error:", webhookError.message);
+      return res.status(500).json({ message: "Failed to submit form!" });
+    }
+  });
+});
+
 module.exports = router;

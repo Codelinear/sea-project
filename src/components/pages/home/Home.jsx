@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./home.scss";
 import trust from "./assets/Row.png";
 import notes from "./assets/Notes (1).png";
@@ -8,6 +8,7 @@ import animationData from "./assets/first_animation.json";
 import animationData2 from "./assets/second_animation.json";
 import animationData3 from "./assets/third_animation.json";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import down from "./assets/down-arrow.svg";
 
 import PhoneInput from "react-phone-input-2";
@@ -19,55 +20,99 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
   useEffect(() => {});
+  const defaultCountry = "us"; // Default country code
+  const [country, setCountry] = useState(defaultCountry);
+  const [topic, setTopic] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState(""); // For success or error messages
+  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/submit_topic_form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Attach token
+        },
+        body: JSON.stringify({ country, topic }),
+      });
+
+      if (response.status === 403) {
+        navigate("/signup"); // Redirect on invalid token
+        return;
+      }
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessageType("success");
+        setMessage(
+          "Form submitted successfully! Check your email for updates."
+        );
+        setTopic(""); // Reset topic input
+        setCountry(defaultCountry); // Reset country input
+      } else {
+        setMessageType("error");
+        setMessage(data.message || "An error occurred. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setMessageType("error");
+      setMessage("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <>
-      <section class="hero-section flex items-center justify-center max-sm:h-[700px]">
-        <div class="main-hero flex-col ">
-          <div class="headind-hero pt-36  max-sm:pt-20">
+      <section className="hero-section flex items-center justify-center max-sm:h-[700px]">
+        <div className="main-hero flex-col ">
+          <div className="headind-hero pt-36 max-sm:pt-20">
             <h2 className="sear-engine">Search Engine Amplify</h2>
-            <div class="flex items-center justify-center pt-6">
+            <div className="flex items-center justify-center pt-6">
               <p className="w-1/2">
                 Lorem ipsum dolor sit amet consectetur. Faucibus id nec aliquam
                 urna iaculis
               </p>
             </div>
 
-            <div class="pt-12  flex items-center justify-center max-sm:flex-wrap ">
-              <div class="input-hero ">
-                <input type="text" placeholder="Enter a topic" />
-
-                {/* <div class="flag-dropdown">
-                  <div class="selected-option" id="selected-option">
-                    <span class="flag-icon us"></span>US
-                    <img class="ml-2" src={down} alt="" />
-                  </div>
-                  <ul class="options-list" id="options-list">
-                    <li data-value="uk">
-                      <span class="flag-icon uk"></span>UK
-                    </li>
-                    <li data-value="in">
-                      <span class="flag-icon in"></span>IN
-                    </li>
-                    <li data-value="in">
-                      <span class="flag-icon ch"></span>CH
-                    </li>
-                    <li data-value="in">
-                      <span class="flag-icon cn"></span>CN
-                    </li>
-                  </ul>
-                </div> */}
+            <div className="pt-12 flex items-center justify-center max-sm:flex-wrap">
+              <div className="input-hero">
+                <input
+                  type="text"
+                  placeholder="Enter a topic"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  required
+                />
 
                 <PhoneInput
-                  country={"in"}
-                  enableAreaCodes={false}
-                  // value={phone}
+                  country={"us"}
+                  onChange={(value, data) =>
+                    setCountry(data?.countryCode || "")
+                  } // Capture country code
                 />
               </div>
-              {/* Select element for countries */}
               <div>
-                <button class="go-button ml-5 max-sm:mt-12">Go</button>
+                <button
+                  className="go-button ml-5 max-sm:mt-12"
+                  onClick={handleSubmit}
+                >
+                  Go
+                </button>
               </div>
             </div>
+            {/* Display message below the form */}
+            {message && (
+              <p
+                className="mt-3 text-center text-green-500 text-sm font-small"
+                style={{
+                  color: messageType === "success" ? "#f59e0b" : "#f87171", // green or red color
+                }}
+              >
+                {message}
+              </p>
+            )}
           </div>
 
           <div class="trust-by pt-36 w-full  min-[1700px]:pt-36  max-sm:pt-10">
