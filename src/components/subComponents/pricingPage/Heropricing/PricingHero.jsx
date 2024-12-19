@@ -14,8 +14,7 @@ const PricingHero = () => {
         <div className="plan-heading flex justify-center items-center flex-col">
           <h1>Plans and Pricing</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur. Non sit scelerisque habitant
-            faucibus.
+            Results-driven outlines and highly effective content — powered by AI
           </p>
         </div>
         <div className="plan-details pt-28 flex justify-center items-center gap-12 flex-wrap">

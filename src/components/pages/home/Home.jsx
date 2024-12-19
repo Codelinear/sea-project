@@ -71,8 +71,8 @@ const Home = () => {
             <h2 className="sear-engine">Search Engine Amplify</h2>
             <div className="flex items-center justify-center pt-6">
               <p className="w-1/2">
-                Lorem ipsum dolor sit amet consectetur. Faucibus id nec aliquam
-                urna iaculis
+                Rank higher in the SERPs with AI-powered, SEO-optimized outlines
+                for blogs.
               </p>
             </div>
 
@@ -142,10 +142,10 @@ const Home = () => {
                 Topic Keyword Research & SEO Analysis
               </div>
               <div class="card-pera">
-                Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
-                cursus varius ut. Quam a quam tincidunt ut et ullamcorper. Vitae
-                mattis bibendum non egestas faucibus leo urna erat at sed enim
-                sit.
+                Search Engine Amplify combines the power of five different AIs
+                in one to provide a next-level SEO analysis that delivers
+                results. We'll analyze your topic in depth, helping you pick the
+                best keywords and optimize your content outlines in seconds.
               </div>
             </div>
             <div class="lotti w-[420px] h-[300px]">
@@ -171,10 +171,11 @@ const Home = () => {
                 Content Generation
               </div>
               <div class="card-pera">
-                Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
-                cursus varius ut. Quam a quam tincidunt ut et ullamcorper. Vitae
-                mattis bibendum non egestas faucibus leo urna erat at sed enim
-                sit.
+                Our tool conducts an in-depth analysis of the top 10 SERPs and
+                the worst 30 SERPs on a specific topic to help create
+                data-driven outlines and content. We'll help you find
+                high-performing keywords, headings, and blog topics for your
+                content strategy- so you don't have to.
               </div>
             </div>
 
@@ -195,10 +196,9 @@ const Home = () => {
               <div class="zero-one">03</div>
               <div class="head-card py-6">Competitor Analysis</div>
               <div class="card-pera">
-                Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
-                cursus varius ut. Quam a quam tincidunt ut et ullamcorper. Vitae
-                mattis bibendum non egestas faucibus leo urna erat at sed enim
-                sit.
+                Tired of your competitors outranking you? We'll help you outrank
+                them in the SERPs with a thorough AI-powered analysis you can
+                leverage to improve your approach to SEO.
               </div>
             </div>
             <div class="lotti w-[420px] h-[300px]">
@@ -218,17 +218,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section class="digital-marketing-tool bg-[#fff]">
+      {/* <section class="digital-marketing-tool bg-[#fff]">
         <div class="main-tools  flex items-center justify-center flex-col ">
           <div class="heading-tool ">Our Digital Marketing Tools</div>
-          {/* <div class="bookH2">
-            <h2>
-                Lorem ipsum dolor sit
-            </h2>
-            <p>
-                Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim cursus varius ut. Quam a quam tincidunt ut et ullamcorper. 
-            </p>
-        </div>  */}
           <div class="tools-card pt-20  flex items-center justify-center gap-6">
             <Link onClick={scrollToTop} to="/product ">
               <div class="Roas-card">
@@ -250,33 +242,36 @@ const Home = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="book-demo bg-[#F4F7FA]">
         <div className="main-book-demo flex justify-center items-center gap- flex-wrap">
           <div className="left-book-demo w-1/2">
-            <h1>Lorem ipsum dolor sit</h1>
+            <h1>
+              Create Content Outlines <br /> That Deliver Results
+            </h1>
             <p className="mt-6">
-              Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
-              cursus varius ut. Quam a quam tincidunt ut et ullamcorper.
+              Rank higher in the SERPs with data-driven outlines and
+              AI-generated content. Explore our different subscription plans for
+              individuals and teams.
             </p>
           </div>
           <div className="right-book-demo">
             <Link onClick={scrollToTop} to={"/contact"}>
-              <button>Book a Demo</button>
+              <button>Explore Pricing</button>
             </Link>
           </div>
         </div>
       </section>
 
-      <section class="review-section flex items-center justify-center mt-20 mb-20">
+      {/* <section class="review-section flex items-center justify-center mt-20 mb-20">
         <div class="main-review flex mt-20">
           <div class="left-review">
             <div class="head-review">
               <h1 class="mt-8">Reviews</h1>
               <p class="pb-8 pt-2">
-                Lorem ipsum dolor sit amet consectetur. Velit faucibus dignissim
-                cursus varius ut.
+                Don't just take it from us. See why other content managers and
+                agencies call Search Engine Amplify a workplace must-have.
               </p>
               <Link to={"/"} onClick={scrollToTop}>
                 <button class="clutch">Clutch</button>
@@ -433,8 +428,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-      <StartTrial />
+      </section> */}
+      {/* <StartTrial /> */}
     </>
   );
 };

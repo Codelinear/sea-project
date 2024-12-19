@@ -146,7 +146,7 @@ const BookDemo = () => {
                 onChange={(e) => setName(e.target.value)}
                 class="input"
                 type="text"
-                placeholder="Enter Your Name"
+                placeholder="John Smith"
               />
             </div>
             <div class="name py-6 min-[1300px]:py-0">
@@ -156,7 +156,7 @@ const BookDemo = () => {
                 onChange={(e) => setEamil(e.target.value)}
                 class="input"
                 type="text"
-                placeholder="Enter Your Email"
+                placeholder="johnsmith@domain.com"
               />
             </div>
             <div class="name relative">
@@ -173,7 +173,7 @@ const BookDemo = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 class="input pl-20 phone-contact"
                 type="number"
-                placeholder="Enter Your phone"
+                placeholder="+1 (123) 123-1234"
               />
             </div>
 

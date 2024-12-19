@@ -118,23 +118,19 @@ const Contact = () => {
         <div class="main-contact flex items-start justify-center h-full px10 gap-20 flex-wrap">
           <div class="left-adress w-[41%] max-lg:w-full max-lg:p-10">
             <div class="get-in">
-              Get in touch with us today! We're here to help
+              Maximize the ROI of your content and rank higher in the SERPs with
+              the power of AI.
             </div>
             <div class="company-name pt-12 pb-12">
               {/* <h1>
                         Company Name
                     </h1> */}
-              <p class="pt-2">
-                Lorem ipsum dolor sit amet, consectetur. Velit faucibus
-              </p>
+              <p class="pt-2">Contact us today to book a free demo.</p>
             </div>
 
             <div class="reach-out">
-              {/* <h1>
-                        Reach out to us
-                    </h1> */}
-              <p class="pt-4">9999999999</p>
-              <p class="pt-4">saf@asfaf.com</p>
+              {/* <p class="pt-4">9999999999</p>
+              <p class="pt-4">saf@asfaf.com</p> */}
             </div>
           </div>
           <div class="right-form ml8">
@@ -163,7 +159,7 @@ const Contact = () => {
                         onChange={(e) => setName(e.target.value)}
                         class="input"
                         type="text"
-                        placeholder="Enter Your Name"
+                        placeholder="John Smith"
                         required
                       />
                     </div>
@@ -175,7 +171,7 @@ const Contact = () => {
                         onChange={(e) => setEamil(e.target.value)}
                         class="input"
                         type="text"
-                        placeholder="Enter Your Email"
+                        placeholder="johnsmith@domain.com"
                         required
                       />
                     </div>
@@ -203,7 +199,7 @@ const Contact = () => {
                         onChange={(e) => setPhone(e.target.value)}
                         class="input pl-20 phone-contact"
                         type="number"
-                        placeholder="Enter Your phone"
+                        placeholder="+1 (123) 123-1234"
                       />
                     </div>
 
@@ -216,7 +212,7 @@ const Contact = () => {
                         id=""
                         class="input"
                         cols="30"
-                        placeholder="I have a doubt on sdgln."
+                        placeholder="Hello! I have a question about..."
                         rows="3"
                       ></textarea>
                     </div>

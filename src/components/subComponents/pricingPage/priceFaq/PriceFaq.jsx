@@ -12,24 +12,19 @@ const PriceFaq = () => {
 
   const faqData = [
     {
-      question: "FAQ 1",
+      question: "How does it work?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur. In donec nibh vitae ultricies hac non a. Volutpat feugiat et augue egestas commodo arcu. Est pellentesque felis nec sapien vestibulum sollicitudin at aliquam. Enim dictumst phasellus adipiscing malesuada.",
+        "Search Engine Amplify will research your topic via a live Google Search results page. It will read through various results to analyze what competitors are doing right and wrong. We’ll create an outline and write a blog post based on the created outline.",
     },
     {
-      question: "FAQ 2",
+      question: "How many search queries do I get a month?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur. In donec nibh vitae ultricies hac non a. Volutpat feugiat et augue egestas commodo arcu. Est pellentesque felis nec sapien vestibulum sollicitudin at aliquam. Enim dictumst phasellus adipiscing malesuada.",
+        "Usage varies by plan and does not roll over until the next month. Contact us today if you’d like to explore a team access plan you can share with your team. ",
     },
     {
-      question: "FAQ 3",
+      question: "Can I cancel at any time?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur. In donec nibh vitae ultricies hac non a. Volutpat feugiat et augue egestas commodo arcu. Est pellentesque felis nec sapien vestibulum sollicitudin at aliquam. Enim dictumst phasellus adipiscing malesuada.",
-    },
-    {
-      question: "FAQ 4",
-      answer:
-        "Lorem ipsum dolor sit amet consectetur. In donec nibh vitae ultricies hac non a. Volutpat feugiat et augue egestas commodo arcu. Est pellentesque felis nec sapien vestibulum sollicitudin at aliquam. Enim dictumst phasellus adipiscing malesuada.",
+        "You can cancel your subscription at any point. Subscriptions are non-refundable, and your benefits will expire at the end of the subscription period.",
     },
     // Add more FAQ items as needed
   ];
@@ -37,7 +32,7 @@ const PriceFaq = () => {
     <>
       <div className="price-faq flex flex-col justify-center items-center pt-20">
         <div className="price-faq-heading">
-          <h1>Frequently asked questions</h1>
+          <h1>Frequently Asked Questions</h1>
         </div>
 
         <div className="main-faq mt-12">
