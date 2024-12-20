@@ -257,7 +257,7 @@ const Home = () => {
             </p>
           </div>
           <div className="right-book-demo">
-            <Link onClick={scrollToTop} to={"/contact"}>
+            <Link onClick={scrollToTop} to={"/price"}>
               <button>Explore Pricing</button>
             </Link>
           </div>

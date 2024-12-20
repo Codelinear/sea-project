@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../db"); // Updated to use promise-based queries
+const mailjetClient = require("../mailjet");
+const { sendWelcomeEmail } = require("../helpers/email");
 require("dotenv").config();
 
 const router = express.Router();
@@ -29,6 +31,14 @@ router.post("/register", async (req, res) => {
       "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
       [username, email, hashedPassword]
     );
+
+    // Generate email confirmation token
+    const confirmationToken = jwt.sign(
+      { id: result.insertId },
+      process.env.EMAIL_CONFIRM_SECRET
+    );
+
+    await sendWelcomeEmail(email, username, confirmationToken);
 
     res.status(201).json({
       message: "User registered successfully",
@@ -107,6 +117,30 @@ router.post("/refresh-token", async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to refresh token", error: err.message });
+  }
+});
+
+// Confirm Email
+router.post("/confirm-email", async (req, res) => {
+  const { token } = req.body; // Extract the token from the request body
+
+  if (!token) {
+    return res.status(400).json({ message: "Confirmation token is required" });
+  }
+
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.EMAIL_CONFIRM_SECRET);
+
+    // Update the user's email verification status
+    await db.execute("UPDATE user SET email_is_verified = TRUE WHERE id = ?", [
+      decoded.id,
+    ]);
+
+    res.status(200).json({ message: "Email confirmed successfully!" });
+  } catch (err) {
+    console.error("Email confirmation error:", err);
+    res.status(400).json({ message: "Invalid or expired confirmation token" });
   }
 });
 

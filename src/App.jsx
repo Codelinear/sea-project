@@ -18,6 +18,7 @@ import UserAccount from "./components/userflow/UserAccount";
 import Support from "./components/pages/support/Support";
 import Qa from "./components/pages/qa/Qa";
 import Payment from "./components/pages/payment/Payment";
+import ConfirmEmail from "./components/pages/confirmEmail/ConfirmEmail";
 function App() {
   function ScrollToTop() {
     useEffect(() => {
@@ -46,6 +47,7 @@ function App() {
           <Route exact path="/qa" element={<Qa />} />
           <Route exact path="/payment" element={<Payment />} />
           <Route exact path="/Blog1" element={<Blogpage />} />
+          <Route exact path="/confirm-email" element={<ConfirmEmail />} />
         </Routes>
         <Footer />
       </BrowserRouter>
