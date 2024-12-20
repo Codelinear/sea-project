@@ -54,7 +54,7 @@ const ConfirmEmail = () => {
   };
 
   return (
-    <section className="mt-44 flex items-center justify-center h-full relative pb28">
+    <section className="mt-44 flex items-center justify-center h-full relative pb-28">
       <div className="confirm-email-page">
         {confirmationStatus === "loading" && (
           <p>Confirming your email address, please wait...</p>

@@ -70,7 +70,9 @@ router.post("/login", async (req, res) => {
     const user = rows[0];
 
     if (user.email_is_verified !== 1) {
-      return res.status(401).json({ message: "User Email Not Verified" });
+      return res
+        .status(401)
+        .json({ message: "User Email Not Verified. Check your email!" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);

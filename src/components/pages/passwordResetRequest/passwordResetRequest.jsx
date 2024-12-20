@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./passwordResetRequest.scss";
 
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ const PasswordResetRequest = () => {
       if (response.ok) {
         setTimeout(() => {
           navigate("/login"); // Redirect to login after success
-        }, 2000);
+        }, 4000);
       }
     } catch (error) {
       setMessage("Error occurred. Please try again later.");
@@ -36,22 +37,32 @@ const PasswordResetRequest = () => {
   };
 
   return (
-    <section className="pt-40 pb-40">
-      <div className="password-reset">
-        <h1>Reset Your Password</h1>
+    <section className="mt-44 flex h-full relative pb-28">
+      <div className="password-reset-request-page">
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send Reset Link"}
-          </button>
+          <div className="input-section pt-10 flex flex-col">
+            <div>
+              <h1>Reset Your Password</h1>
+              <label className="flex">Email</label>
+              <div className="input-field">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-5 subscribe-plan w-full">
+            <button type="submit" disabled={loading}>
+              {loading ? "Sending..." : "Send Reset Link"}
+            </button>
+          </div>
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className="pt-2">{message}</p>}
       </div>
     </section>
   );

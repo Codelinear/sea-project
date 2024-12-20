@@ -1,6 +1,6 @@
 const mailjetClient = require("../mailjet");
 
-const sendWelcomeEmail = async (toEmail, username, confirmationToken) => {
+const sendWelcomeEmail = async (toEmail, fullName, confirmationToken) => {
   const confirmationLink = `${process.env.FRONTEND_URL}/confirm-email?token=${confirmationToken}`;
 
   try {
@@ -14,13 +14,13 @@ const sendWelcomeEmail = async (toEmail, username, confirmationToken) => {
           To: [
             {
               Email: toEmail,
-              Name: username || "User",
+              Name: fullName || "User",
             },
           ],
           Subject: "Welcome to Our Service!",
-          TextPart: `Hi ${username}, welcome! Please confirm your email using this link: ${confirmationLink}`,
-          HTMLPart: `<p>Hi <strong>${username}</strong>, welcome! Please confirm your email using the link below:</p>
-                     <a href="${confirmationLink}">Confirm Email</a>`,
+          TextPart: `Hi ${fullName}, welcome! Please confirm your email using this link: ${confirmationLink}`,
+          HTMLPart: `<p>Hi <strong>${fullName}</strong>, welcome! Please confirm your email using the link below:</p>
+                     <a href="${confirmationLink}">Confirm Email</a><br><br>Thank you!<br><br>-The Search Engine Amplify Team`,
         },
       ],
     });
@@ -55,7 +55,7 @@ const sendPasswordResetEmail = async (toEmail, resetLink) => {
           HTMLPart: `
               <p>We received a request to reset your password. Click the link below to reset it:</p>
               <p><a href="${resetLink}">${resetLink}</a></p>
-              <p>If you did not request this, please ignore this message.</p>
+              <p>If you did not request this, please ignore this message.<br><br>Thank you!<br><br>-The Search Engine Amplify Team</p>
             `,
         },
       ],
