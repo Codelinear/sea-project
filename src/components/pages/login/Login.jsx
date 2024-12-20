@@ -111,9 +111,16 @@ const Login = () => {
             <button onClick={handleLogin}>Log In</button>
 
             <p className="alraeady mt-4 flex justify-center">
-              Don’t have an account?
+              Don't have an account?
               <Link to={"/signup"}>
                 <span>Sign up</span>
+              </Link>
+            </p>
+
+            <p className="alraeady mt-4 flex justify-center">
+              Forgot Password?
+              <Link to={"/password-reset-request"}>
+                <span>Reset Password</span>
               </Link>
             </p>
           </div>

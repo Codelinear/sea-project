@@ -3,7 +3,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../db"); // Updated to use promise-based queries
 const mailjetClient = require("../mailjet");
-const { sendWelcomeEmail } = require("../helpers/email");
+const {
+  sendWelcomeEmail,
+  sendPasswordResetEmail,
+} = require("../helpers/email");
 require("dotenv").config();
 
 const router = express.Router();
@@ -146,6 +149,105 @@ router.post("/confirm-email", async (req, res) => {
   } catch (err) {
     console.error("Email confirmation error:", err);
     res.status(400).json({ message: "Invalid or expired confirmation token" });
+  }
+});
+
+// Password Reset Request
+router.post("/reset-password-request", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  try {
+    const [rows] = await db.execute("SELECT * FROM user WHERE email = ?", [
+      email,
+    ]);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Email not found" });
+    }
+
+    const user = rows[0];
+
+    // Generate a reset token (JWT)
+    const resetToken = jwt.sign(
+      { id: user.id },
+      process.env.RESET_PASSWORD_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Set the expiry time for the reset token (e.g., 1 hour from now)
+    const resetTokenExpiry = Date.now() + 3600000; // 1 hour
+
+    // Update the user record with the reset token and expiry time
+    await db.execute(
+      "UPDATE user SET reset_token = ?, reset_token_expiry = ? WHERE id = ?",
+      [resetToken, resetTokenExpiry, user.id]
+    );
+
+    // Send the reset token to the user's email (you'll need to customize this)
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+    await sendPasswordResetEmail(email, resetLink);
+
+    res.status(200).json({ message: "Password reset link sent to email" });
+  } catch (err) {
+    console.error("Error during password reset request:", err);
+    res.status(500).json({
+      message: "Failed to send password reset link",
+      error: err.message,
+    });
+  }
+});
+
+// Reset Password
+router.post("/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword) {
+    return res
+      .status(400)
+      .json({ message: "Token and new password are required" });
+  }
+
+  try {
+    // Verify the reset token
+    const decoded = jwt.verify(token, process.env.RESET_PASSWORD_SECRET);
+    const [rows] = await db.execute("SELECT * FROM user WHERE id = ?", [
+      decoded.id,
+    ]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user = rows[0];
+
+    // Check if the reset token has expired
+    if (user.reset_token_expiry < Date.now()) {
+      return res.status(400).json({ message: "Reset token has expired" });
+    }
+
+    // Check if the token matches the one in the database
+    if (user.reset_token !== token) {
+      return res.status(400).json({ message: "Invalid reset token" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password
+    await db.execute(
+      "UPDATE user SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id = ?",
+      [hashedPassword, user.id]
+    );
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (err) {
+    console.error("Error during password reset:", err);
+    res
+      .status(500)
+      .json({ message: "Failed to reset password", error: err.message });
   }
 });
 

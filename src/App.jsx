@@ -19,6 +19,8 @@ import Support from "./components/pages/support/Support";
 import Qa from "./components/pages/qa/Qa";
 import Payment from "./components/pages/payment/Payment";
 import ConfirmEmail from "./components/pages/confirmEmail/ConfirmEmail";
+import PasswordResetRequest from "./components/pages/passwordResetRequest/passwordResetRequest";
+import PasswordReset from "./components/pages/passwordReset/passwordReset";
 function App() {
   function ScrollToTop() {
     useEffect(() => {
@@ -48,6 +50,12 @@ function App() {
           <Route exact path="/payment" element={<Payment />} />
           <Route exact path="/Blog1" element={<Blogpage />} />
           <Route exact path="/confirm-email" element={<ConfirmEmail />} />
+          <Route
+            exact
+            path="/password-reset-request"
+            element={<PasswordResetRequest />}
+          />
+          <Route exact path="/reset-password" element={<PasswordReset />} />
         </Routes>
         <Footer />
       </BrowserRouter>
