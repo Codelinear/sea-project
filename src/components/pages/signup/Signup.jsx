@@ -3,7 +3,7 @@ import "./signup.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,7 +13,7 @@ const Signup = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
+    if (!fullName || !email || !password) {
       setErrorpage("All fields are required");
       return;
     }
@@ -26,7 +26,7 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
+          fullName,
           email,
           password,
         }),
@@ -53,14 +53,14 @@ const Signup = () => {
 
         <div className="input-section pt-10 flex flex-col items-center justify-center">
           <div>
-            <div className="span">Username</div>
+            <div className="span">Name</div>
             <div className="input-field">
               <input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 required
                 type="text"
-                placeholder="Enter Your Username"
+                placeholder="Enter Your Full Name"
               />
             </div>
           </div>

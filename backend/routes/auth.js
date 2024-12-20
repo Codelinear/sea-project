@@ -22,17 +22,17 @@ const createRefreshToken = (userId) =>
 
 // Register route
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { fullName, email, password } = req.body;
 
-  if (!username || !email || !password) {
+  if (!fullName || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const [result] = await db.execute(
-      "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
-      [username, email, hashedPassword]
+      "INSERT INTO user (display_name, email, password) VALUES (?, ?, ?)",
+      [fullName, email, hashedPassword]
     );
 
     // Generate email confirmation token
@@ -41,7 +41,7 @@ router.post("/register", async (req, res) => {
       process.env.EMAIL_CONFIRM_SECRET
     );
 
-    await sendWelcomeEmail(email, username, confirmationToken);
+    await sendWelcomeEmail(email, fullName, confirmationToken);
 
     res.status(201).json({
       message: "User registered successfully",
