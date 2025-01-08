@@ -140,15 +140,15 @@ const Contact = () => {
                 className={`tab tab1 ${activeTab === 1 ? "active-tab" : ""}`}
                 onClick={() => handleTabChange(1)}
               >
-                Enquiry
+                Contact Us
               </div>
-              <div
+              {/* <div
                 // class="tab tab2"
                 className={`tab tab2 ${activeTab === 2 ? "active-tab" : ""}`}
                 onClick={() => handleTabChange(2)}
               >
                 Book a Demo
-              </div>
+              </div> */}
               {activeTab === 1 && (
                 <div id="tab1Content" class="tab-content">
                   <div class="content-inside ">
