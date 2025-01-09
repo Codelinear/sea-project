@@ -3,8 +3,24 @@ const express = require("express");
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const mailjetClient = require("../mailjet");
+const { sendContactFormEmail } = require("../helpers/email");
 const router = express.Router();
+
+
+router.post("/submit_contact_form", async (req,res) => {
+  const { name, email, message, phone } = req.body;
+
+  try{
+    console.log({ name, email, phone, message });
+    await sendContactFormEmail(message,email,phone,name);
+    res.json({ status: "success", message: "Contact Form Submitted Successfully" });
+  }
+  catch(message){
+    res.status(500).json({ message: "Internal server error" });
+  }
+
+});
 
 router.get("/get_account", async (req, res) => {
   const authHeader = req.headers.authorization;

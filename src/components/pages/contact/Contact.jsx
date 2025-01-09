@@ -81,7 +81,7 @@ const Contact = () => {
     const data = { name, email, phone, message };
     try {
       const response = await fetch(
-        "https://hooks.zapier.com/hooks/catch/10973939/2oiq0x6/",
+        "/api/submit_contact_form",
         {
           method: "POST",
           headers: {
@@ -204,7 +204,7 @@ const Contact = () => {
                     </div>
 
                     <div class="name">
-                      <span>Your Enquiry</span>
+                      <span>Message</span>
                       <textarea
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
