@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./contact.scss";
 import axios from "axios";
 import BookDemo from "./bookademo/BookDemo";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -28,6 +29,7 @@ const Contact = () => {
   showForm();
   const [activeTab, setActiveTab] = useState(1);
 
+  const RECAPTCHA_SITE_KEY = process.env.REACT_APP_GOOGLE_RECAPTCHA_SITE_KEY;
   const handleTabChange = (tabNumber) => {
     setActiveTab(tabNumber);
   };
@@ -62,9 +64,15 @@ const Contact = () => {
   //////////////////////////////////////////form/////////////////////////////////////////////////////////////////
 
   const [name, setName] = useState();
-  const [email, setEamil] = useState();
+  const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
   const [message, setMessage] = useState();
+  const [statusMessage, setStatusMessage] = useState(null); // For success/error messages
+  const [statusType, setStatusType] = useState(""); // "success" or "error"
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token); // Save the reCAPTCHA token
+  };
   // const [err, setMessage] = useState();
   const [errorpage, setErrorpage] = useState("");
 
@@ -78,7 +86,7 @@ const Contact = () => {
     e.preventDefault();
 
     // const webhookUrl =  // replace with your actual Zapier webhook URL
-    const data = { name, email, phone, message };
+    const data = { name, email, phone, message, recaptchaToken };
     try {
       const response = await fetch(
         "/api/submit_contact_form",
@@ -94,16 +102,21 @@ const Contact = () => {
       console.log(response);
       if (response.ok) {
         // Handle success (e.g., show a success message)
-        alert("Form submitted successfully!");
-        console.log("suncess:");
+        setStatusMessage("Form submitted successfully!");
+        setStatusType("success");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+        setRecaptchaToken(null);
       } else {
         // Handle error (e.g., show an error message)
         // alert('Form submission failed.')
-        console.log("Error submitting form:");
+        setStatusMessage("Form submission failed.");
+        setStatusType("error");
       }
     } catch (error) {
       console.log("Error submitting form:", error);
-      alert("Form submission failed.");
     }
   };
 
@@ -168,7 +181,7 @@ const Contact = () => {
 
                       <input
                         value={email}
-                        onChange={(e) => setEamil(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         class="input"
                         type="text"
                         placeholder="johnsmith@domain.com"
@@ -217,8 +230,26 @@ const Contact = () => {
                       ></textarea>
                     </div>
 
-                    <div className="error-search mt-10 text-center text-[red]">
-                      {errorpage ? errorpage : ""}{" "}
+                    <div className="recaptcha-container mt-4">
+                <ReCAPTCHA
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={handleRecaptchaChange}
+                />
+                </div>
+
+                    <div className="mt-5 text-center">
+                      {/* Display Success/Error Message */}
+                      {statusMessage && (
+                        <div
+                        className={`${
+                          statusType === "success"
+                          ? "text-green-600"
+                          : "text-red-600"
+                        }`}
+                        >
+                    {statusMessage}
+                  </div>
+                )}
                     </div>
 
                     <div class="submit-button pt-8">

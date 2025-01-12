@@ -6,18 +6,37 @@ const jwt = require("jsonwebtoken");
 const mailjetClient = require("../mailjet");
 const { sendContactFormEmail } = require("../helpers/email");
 const router = express.Router();
+const RECAPTCHA_SECRET_KEY = process.env.GOOGLE_RECAPTCHA_SECRET_KEY;
 
 
 router.post("/submit_contact_form", async (req,res) => {
-  const { name, email, message, phone } = req.body;
+  const { name, email, message, phone, recaptchaToken } = req.body;
 
-  try{
-    console.log({ name, email, phone, message });
-    await sendContactFormEmail(message,email,phone,name);
-    res.json({ status: "success", message: "Contact Form Submitted Successfully" });
+  if(!name || !email || !phone){
+    res.status(400).json({ message: "Required Form Fields Missing" });
   }
-  catch(message){
-    res.status(500).json({ message: "Internal server error" });
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: "reCAPTCHA token is missing." });
+  }
+
+  const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`;
+  try {
+    //console.log({ name, email, phone, message, recaptchaToken });
+    const response = await fetch(verificationURL, { method: "POST" });
+    //console.log(response);
+    const verificationResult = await response.json();
+
+    if (!verificationResult.success) {
+      return res.status(400).json({ message: "reCAPTCHA verification failed." });
+    }
+
+    // Proceed with form submission logic
+    //console.log({ name, email, phone, message });
+    await sendContactFormEmail(message,email,phone,name);
+    res.json({ status: "success", message: "Form submitted successfully." });
+  } catch (error) {
+    //console.error("Error verifying reCAPTCHA:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 
 });
