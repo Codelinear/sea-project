@@ -5,8 +5,8 @@ import Cnctsup from "../../subComponents/supportpage/contactSupport/Cnctsup";
 const Support = () => {
   return (
     <>
-      <Supporthero />
       <Cnctsup />
+      <Supporthero />
     </>
   );
 };

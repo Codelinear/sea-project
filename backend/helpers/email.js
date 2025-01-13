@@ -32,6 +32,37 @@ const sendWelcomeEmail = async (toEmail, fullName, confirmationToken) => {
   }
 };
 
+const sendSupportFormEmail = async (name, email, subject, issue) => {
+
+  try{
+    //console.log(message);
+    const request = mailjetClient.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: "no-reply@searchengineamplify.com", // Update with your sender email
+            Name: "Support - Search Engine Amplify", // Update with your sender name
+          },
+          To: [
+            {
+              Email: "support@searchengineamplify.com",
+              Name: "Support Form Submitted",
+            },
+          ],
+          Subject: "New Support Form Submitted",
+          TextPart: `A new Support Form has been submitted!`,
+          HTMLPart: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Subject:</strong> ${subject}</p><p><strong>Issue:</strong> ${issue}</p>`,
+        },
+      ],
+    });
+    console.log("Contact Form Email Sent :", request.body);
+  }
+  catch(error){
+    throw new Error("Failed to send contact form email");
+  }
+
+};
+
 const sendContactFormEmail = async (message, email, phone, name) => {
 
   try{
@@ -41,7 +72,7 @@ const sendContactFormEmail = async (message, email, phone, name) => {
         {
           From: {
             Email: "no-reply@searchengineamplify.com", // Update with your sender email
-            Name: "Search Engine Amplify", // Update with your sender name
+            Name: "Contact - Search Engine Amplify", // Update with your sender name
           },
           To: [
             {
@@ -102,5 +133,6 @@ const sendPasswordResetEmail = async (toEmail, resetLink) => {
 module.exports = {
   sendWelcomeEmail,
   sendPasswordResetEmail,
-  sendContactFormEmail
+  sendContactFormEmail,
+  sendSupportFormEmail
 };
