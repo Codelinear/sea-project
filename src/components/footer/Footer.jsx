@@ -44,13 +44,13 @@ const Footer = () => {
               <div className="footer-logo-new">
                 <img class="w-[124px] h-[44px]" src={logfooter} alt="" />
                 <p class="mt-9">
-                  Lorem ipsum dolor sit amet, consectetur. Velit faucibus
+                Rank higher in the SERPs with AI-powered, SEO-optimized outlines for blogs.
                 </p>
               </div>
 
               <div className="flex-col justify-start items-start gap-2.5 inline-flex mt-7">
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
-                  hello@sea.com
+                  hello@searchengineamplify.com
                 </div>
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
                   +1 (680) 445-0901
@@ -170,13 +170,13 @@ const Footer = () => {
               <div className="footer-logo-new">
                 <img class="w-[124px] h-[44px]" src={logfooter} alt="" />
                 <p class="mt-9">
-                  Lorem ipsum dolor sit amet, consectetur. Velit faucibus
+                Rank higher in the SERPs with AI-powered, SEO-optimized outlines for blogs.
                 </p>
               </div>
 
               <div className="flex-col justify-start items-start gap-2.5 inline-flex mt-7">
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
-                  hello@sea.com
+                hello@searchengineamplify.com
                 </div>
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
                   +1 (680) 445-0901
@@ -296,13 +296,13 @@ const Footer = () => {
               <div className="footer-logo-new">
                 <img class="w-[124px] h-[44px]" src={logfooter} alt="" />
                 <p class="mt-9">
-                  Lorem ipsum dolor sit amet, consectetur. Velit faucibus
+                Rank higher in the SERPs with AI-powered, SEO-optimized outlines for blogs.
                 </p>
               </div>
 
               <div className="flex-col justify-start items-start gap-2.5 inline-flex mt-7">
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
-                  hello@sea.com
+                hello@searchengineamplify.com
                 </div>
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
                   +1 (680) 445-0901
@@ -446,13 +446,13 @@ const Footer = () => {
               <div className="footer-logo-new">
                 <img class="w-[124px] h-[44px]" src={logfooter} alt="" />
                 <p class="mt-9">
-                  Lorem ipsum dolor sit amet, consectetur. Velit faucibus
+                Rank higher in the SERPs with AI-powered, SEO-optimized outlines for blogs.
                 </p>
               </div>
 
               <div className="flex-col justify-start items-start gap-2.5 inline-flex mt-7">
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
-                  hello@sea.com
+                <a href="mailto:hello@searchengineamplify.com">hello@searchengineamplify.com</a>
                 </div>
                 <div className="text-zinc-800 text-sm font-normal font-['Poppins']">
                   +1 (680) 445-0901
