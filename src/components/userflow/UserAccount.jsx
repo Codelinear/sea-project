@@ -4,6 +4,7 @@ import "./useraccount.scss";
 import { useLocation } from "react-router-dom";
 import Profile from "../userflowComponents/profileSetting/Profile";
 import Subscription from "../userflowComponents/subscription/Subscription";
+import SubscriptionMain from "../userflowComponents/subscriptionMain/SubscriptionMain";
 import PaymentMethod from "../userflowComponents/paymentMethod/PaymentMethod";
 import PaymentHistory from "../userflowComponents/paymentHistory/PaymentHistory";
 import BillingAddress from "../userflowComponents/billingAddress/BillingAddress";
@@ -21,12 +22,11 @@ const UserAccount = () => {
       content: <Profile onButtonClick={handleTabClick} />,
       id: "local",
     },
-    //TODO: implement the below functionalities
-    // {
-    //   label: "Subscription",
-    //   content: <Subscription onButtonClick={handleTabClick} />,
-    //   id: "roas",
-    // },
+    {
+      label: "Subscriptions",
+      content: <SubscriptionMain onButtonClick={handleTabClick} />,
+      id: "roas",
+    },
     //{ label: "Payment method", content: <PaymentMethod /> },
     //{ label: "Payment history", content: <PaymentHistory /> },
     //{ label: "Billing Address", content: <BillingAddress /> },

@@ -4,15 +4,17 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mailjetClient = require("../mailjet");
-const { sendContactFormEmail, sendSupportFormEmail } = require("../helpers/email");
+const {
+  sendContactFormEmail,
+  sendSupportFormEmail,
+} = require("../helpers/email");
 const router = express.Router();
 const RECAPTCHA_SECRET_KEY = process.env.GOOGLE_RECAPTCHA_SECRET_KEY;
 
-
-router.post("/submit_support_form", async (req,res) => {
+router.post("/submit_support_form", async (req, res) => {
   const { name, email, subject, issue, recaptchaToken } = req.body;
 
-  if(!name || !email || !subject || !issue){
+  if (!name || !email || !subject || !issue) {
     res.status(400).json({ message: "Required Form Fields Missing" });
   }
   if (!recaptchaToken) {
@@ -26,24 +28,25 @@ router.post("/submit_support_form", async (req,res) => {
     //console.log(response);
     const verificationResult = await response.json();
     if (!verificationResult.success) {
-      return res.status(400).json({ message: "reCAPTCHA verification failed." });
+      return res
+        .status(400)
+        .json({ message: "reCAPTCHA verification failed." });
     }
 
     // Proceed with form submission logic
     //console.log({ name, email, subject, issue, recaptchaToken });
-    await sendSupportFormEmail(name,email,subject,issue);
+    await sendSupportFormEmail(name, email, subject, issue);
     res.json({ status: "success", message: "Form submitted successfully." });
   } catch (error) {
     //console.error("Error verifying reCAPTCHA:", error);
     res.status(500).json({ message: "Internal server error." });
   }
-
 });
 
-router.post("/submit_contact_form", async (req,res) => {
+router.post("/submit_contact_form", async (req, res) => {
   const { name, email, message, phone, recaptchaToken } = req.body;
 
-  if(!name || !email || !phone){
+  if (!name || !email || !phone) {
     res.status(400).json({ message: "Required Form Fields Missing" });
   }
   if (!recaptchaToken) {
@@ -58,18 +61,19 @@ router.post("/submit_contact_form", async (req,res) => {
     const verificationResult = await response.json();
 
     if (!verificationResult.success) {
-      return res.status(400).json({ message: "reCAPTCHA verification failed." });
+      return res
+        .status(400)
+        .json({ message: "reCAPTCHA verification failed." });
     }
 
     // Proceed with form submission logic
     //console.log({ name, email, phone, message });
-    await sendContactFormEmail(message,email,phone,name);
+    await sendContactFormEmail(message, email, phone, name);
     res.json({ status: "success", message: "Form submitted successfully." });
   } catch (error) {
     //console.error("Error verifying reCAPTCHA:", error);
     res.status(500).json({ message: "Internal server error." });
   }
-
 });
 
 router.get("/get_account", async (req, res) => {
@@ -84,6 +88,26 @@ router.get("/get_account", async (req, res) => {
 
     const [user] = await db.execute(
       "SELECT display_name, email, trial_credits FROM user WHERE id = ?",
+      [decoded.id]
+    );
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
+  });
+});
+
+router.get("/get_subscriptions", async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader)
+    return res.status(401).json({ message: "Authorization token required" });
+
+  const token = authHeader.split(" ")[1];
+
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Invalid token" });
+
+    const [user] = await db.execute(
+      "SELECT s.*, pt.name AS 'product_tier_name', pt.billing_frequency AS 'billing_frequency',pt.credits AS 'credits_purchased',p.name AS 'product_name',p.description AS 'product_descirption' FROM subscription s, product_tier pt, product p WHERE s.user_id = ? AND pt.id = s.product_tier_id AND p.id = s.product_id ORDER BY s.start_date DESC",
       [decoded.id]
     );
     if (!user) return res.status(404).json({ message: "User not found" });
