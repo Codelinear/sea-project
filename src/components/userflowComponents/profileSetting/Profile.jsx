@@ -45,7 +45,6 @@ const Profile = () => {
   const [otp, setOtp] = useState("");
 
   const [userData, setUserData] = useState(null);
-  const [trialCredits, setTrialCredits] = useState(null);
 
   // Fetch user data from the backend
   useEffect(() => {
@@ -81,12 +80,6 @@ const Profile = () => {
   useEffect(() => {
     if (userData && userData.email) {
       setEmail(userData.email);
-    }
-  }, [userData]);
-
-  useEffect(() => {
-    if (userData && userData.trial_credits) {
-      setTrialCredits(userData.trial_credits);
     }
   }, [userData]);
 
@@ -408,10 +401,10 @@ const Profile = () => {
               )}
             </div>
 
-            <div className="username-profile flex flex-col gap-4 justify-start w-[309px] pt-5">
+            {/* <div className="username-profile flex flex-col gap-4 justify-start w-[309px] pt-5">
               <label htmlFor="trialCredits">Trial Credits Remaining</label>
               <p>{trialCredits}</p>
-            </div>
+            </div> */}
 
             {/* TODO: Implement functionality to change password */}
             {/* <div className="password-save w-[309px] mt-8">

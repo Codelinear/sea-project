@@ -77,20 +77,20 @@ const SubscriptionMain = ({ onButtonClick }) => {
         Header: "Status",
         accessor: "status",
       },
-      {
-        Header: "Action",
-        Cell: ({ row }) =>
-          row.original.status === "active" ? (
-            <button
-              className="px-4 py-2 bg-orange-300 text-white rounded hover:bg-gray-300"
-              onClick={() => handleAction(row.original)}
-            >
-              Action
-            </button>
-          ) : (
-            ""
-          ),
-      },
+      // {
+      //   Header: "Action",
+      //   Cell: ({ row }) =>
+      //     row.original.status === "active" ? (
+      //       <button
+      //         className="px-4 py-2 bg-orange-300 text-white rounded hover:bg-gray-300"
+      //         onClick={() => handleAction(row.original)}
+      //       >
+      //         Action
+      //       </button>
+      //     ) : (
+      //       ""
+      //     ),
+      // },
     ],
     []
   );
@@ -111,7 +111,7 @@ const SubscriptionMain = ({ onButtonClick }) => {
   return (
     <div className="subscription pl-[100px]">
       <div className="head-subscription mb-10">
-        <h1>Subscription</h1>
+        <h1>Subscriptions</h1>
       </div>
       <div className="table-container overflow-x-auto">
         {userData.length > 0 ? (
